@@ -3,7 +3,7 @@ import 'styles/main.scss'
 
 import Stats from 'stats.js'
 
-const ASPECT_RATIO = window.innerWidth / window.innerHeight
+import { MARKER_MODELS } from './config';
 
 const enableDevTools = () => {
   const stats = new Stats()
@@ -17,14 +17,39 @@ const enableDevTools = () => {
   return { stats }
 }
 
+const getTorus = () => {
+  const geometry = new THREE.TorusKnotGeometry(0.3, 0.1, 64, 16)
+  const material = new THREE.MeshNormalMaterial()
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.position.y = 0.5
+
+  return mesh
+}
+
+const getBox = () => {
+  const geometry = new THREE.CubeGeometry(1, 1, 1)
+  const material = new THREE.MeshNormalMaterial({
+    transparent: true,
+    opacity: 0.5,
+    side: THREE.DoubleSide
+  })
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.position.y = geometry.parameters.height / 2
+
+  return mesh
+}
+
 class App {
   constructor () {
+    this.controls = []
+
     this.setScene()
     this.setRenderer()
 
     this.setARToolkit()
-    this.addMarker()
-    this.setComponents()
+    // this.addMarker()
+    // this.setComponents()
+    this.addMarkers()
 
     this.stats = enableDevTools().stats
 
@@ -61,16 +86,48 @@ class App {
 
     this.artoolkitContext = new THREEx.ArToolkitContext({
       ...artoolkitProfile.contextParameters,
-      cameraParametersUrl: 'camera_para.dat',
-      detectionMode: 'mono',
-      maxDetectionRate: 30,
-      canvasWidth: 80 * 3,
-      canvasHeight: 60 * 3
+      cameraParametersUrl: 'camera_para.dat'
     })
 
     this.artoolkitContext.init(() => {
       this.camera.projectionMatrix.copy(this.artoolkitContext.getProjectionMatrix())
     })
+  }
+
+  addMarkers () {
+    MARKER_MODELS.forEach(({ file, model }) => {
+      const marker = new THREE.Group()
+      this.scene.add(marker)
+
+      this.artoolkitMarker = new THREEx.ArMarkerControls(this.artoolkitContext, marker, {
+        type: 'pattern',
+        patternUrl: file
+      })
+
+      const smoothedRoot = new THREE.Group()
+      this.scene.add(smoothedRoot)
+
+      const controls = new THREEx.ArSmoothedControls(smoothedRoot, {
+        lerpPosition: 0.4,
+        lerpQuaternion: 0.3,
+        lerpScale: 1
+      })
+
+      this.addModel(model, smoothedRoot)
+
+      this.controls.push({
+        control: controls,
+        marker
+      })
+    })
+  }
+
+  addModel (name, root) {
+    if (name === 'torus') {
+      root.add(getTorus())
+    } else if (name === 'box') {
+      root.add(getBox())
+    }
   }
 
   addMarker () {
@@ -79,7 +136,7 @@ class App {
 
     this.artoolkitMarker = new THREEx.ArMarkerControls(this.artoolkitContext, this.marker, {
       type: 'pattern',
-      patternUrl: 'patt.hiro'
+      patternUrl: 'hiro.patt'
     })
 
     this.smoothedRoot = new THREE.Group()
@@ -98,6 +155,14 @@ class App {
     const torusMesh = new THREE.Mesh(torusGeometry, torusMaterial)
     torusMesh.position.y = 0.5
     this.smoothedRoot.add(torusMesh)
+  }
+
+  updateControls () {
+    for (let i = 0; i < this.controls.length; i += 1) {
+      if (this.controls[i] && this.controls[i].control) {
+        this.controls[i].control.update(this.controls[i].marker)
+      }
+    }
   }
 
   handleSourceResize = () => {
@@ -123,7 +188,10 @@ class App {
     if (this.artoolkitSource.ready !== false) {
       this.artoolkitContext.update(this.artoolkitSource.domElement)
     }
-    this.smoothedControls.update(this.marker)
+
+    this.updateControls()
+
+    // this.smoothedControls.update(this.marker)
     this.renderer.render(this.scene, this.camera)
     this.stats.update()
   }
