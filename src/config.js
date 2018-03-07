@@ -3,3 +3,11 @@ export const MODEL_NAMES = {
   turretHead: 'cannon_main_head',
   turretBase: 'cannon_main_legs'
 }
+
+export const MARKER_MODELS = [{
+  file: 'mck-marker.patt',
+  model: 'torus'
+}, {
+  file: 'hiro.patt',
+  model: 'box'
+}]
