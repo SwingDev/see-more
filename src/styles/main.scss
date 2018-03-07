@@ -1,0 +1,17 @@
+body {
+  background-color: #fff;
+}
+
+* {
+  user-select: none;
+}
+
+canvas {
+  display: block;
+}
+
+#scene {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
