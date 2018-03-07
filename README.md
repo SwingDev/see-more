@@ -1,9 +1,9 @@
-# Cannon shooter
-Simple cannon shooter game build in [WebVR][webvr]
+# WebAR simple demo
+Simple AR demo built with [AR.js][ar.js]
 
 ## Requirements
 - [Node.js][node.js]
-- [Chrome][chrome] or other browser which supports WebVR (or at least the experimental flag) - [see more][browser-reference]
+- [Chrome][chrome] or other browser which supports [WebRTC][webrtc] and [WebGL][webgl]
 
 ## Usage
 - `yarn install` (or `npm install` if you use NPM)
@@ -12,12 +12,8 @@ Simple cannon shooter game build in [WebVR][webvr]
 ## Build
 - `yarn build`
 
-## How to enable WebVR in Chrome Android
-- go to `chrome://flags`
-- search for "WebVR"
-- click "Enabled"
-
-[webvr]: https://developer.mozilla.org/en-US/docs/Web/API/WebVR_API
+[ar.js]: https://github.com/jeromeetienne/AR.js
 [node.js]: https://nodejs.org/en/
 [chrome]: https://www.google.com/chrome/
-[browser-reference]: https://webvr.info/developers/
+[webrtc]: https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API
+[webgl]:https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API
