@@ -3,7 +3,9 @@ import 'styles/main.scss'
 
 import Stats from 'stats.js'
 
-import { MARKER_MODELS } from './config';
+import { MARKER_MODELS } from './config'
+import makeLights from './components/Lights'
+import loadModel from './utils/model-loader'
 
 const enableDevTools = () => {
   const stats = new Stats()
@@ -17,38 +19,15 @@ const enableDevTools = () => {
   return { stats }
 }
 
-const getTorus = () => {
-  const geometry = new THREE.TorusKnotGeometry(0.3, 0.1, 64, 16)
-  const material = new THREE.MeshNormalMaterial()
-  const mesh = new THREE.Mesh(geometry, material)
-  mesh.position.y = 0.5
-
-  return mesh
-}
-
-const getBox = () => {
-  const geometry = new THREE.CubeGeometry(1, 1, 1)
-  const material = new THREE.MeshNormalMaterial({
-    transparent: true,
-    opacity: 0.5,
-    side: THREE.DoubleSide
-  })
-  const mesh = new THREE.Mesh(geometry, material)
-  mesh.position.y = geometry.parameters.height / 2
-
-  return mesh
-}
-
 class App {
   constructor () {
     this.controls = []
 
     this.setScene()
     this.setRenderer()
+    this.setLights()
 
     this.setARToolkit()
-    // this.addMarker()
-    // this.setComponents()
     this.addMarkers()
 
     this.stats = enableDevTools().stats
@@ -77,32 +56,46 @@ class App {
     this.renderer.setClearColor(new THREE.Color('lightgrey'), 0)
   }
 
+  setLights () {
+    const { hemiLight } = makeLights()
+    this.scene.add(hemiLight)
+  }
+
   setARToolkit () {
     const artoolkitProfile = new THREEx.ArToolkitProfile()
     artoolkitProfile.sourceWebcam()
 
-    this.artoolkitSource = new THREEx.ArToolkitSource(artoolkitProfile.sourceParameters)
+    this.artoolkitSource = new THREEx.ArToolkitSource(
+      artoolkitProfile.sourceParameters
+    )
     this.artoolkitSource.init(this.handleSourceResize)
 
     this.artoolkitContext = new THREEx.ArToolkitContext({
       ...artoolkitProfile.contextParameters,
-      cameraParametersUrl: 'camera_para.dat'
+      cameraParametersUrl: 'camera_para.dat',
+      maxDetectionRate: 30
     })
 
     this.artoolkitContext.init(() => {
-      this.camera.projectionMatrix.copy(this.artoolkitContext.getProjectionMatrix())
+      this.camera.projectionMatrix.copy(
+        this.artoolkitContext.getProjectionMatrix()
+      )
     })
   }
 
   addMarkers () {
-    MARKER_MODELS.forEach(({ file, model }) => {
+    MARKER_MODELS.forEach(({ file, modelName }) => {
       const marker = new THREE.Group()
       this.scene.add(marker)
 
-      this.artoolkitMarker = new THREEx.ArMarkerControls(this.artoolkitContext, marker, {
-        type: 'pattern',
-        patternUrl: file
-      })
+      this.artoolkitMarker = new THREEx.ArMarkerControls(
+        this.artoolkitContext,
+        marker,
+        {
+          type: 'pattern',
+          patternUrl: file
+        }
+      )
 
       const smoothedRoot = new THREE.Group()
       this.scene.add(smoothedRoot)
@@ -113,7 +106,7 @@ class App {
         lerpScale: 1
       })
 
-      this.addModel(model, smoothedRoot)
+      this.addModel(modelName, smoothedRoot)
 
       this.controls.push({
         control: controls,
@@ -122,12 +115,12 @@ class App {
     })
   }
 
-  addModel (name, root) {
-    if (name === 'torus') {
-      root.add(getTorus())
-    } else if (name === 'box') {
-      root.add(getBox())
-    }
+  addModel (modelName, root) {
+    loadModel(`/${modelName}/${modelName}.gltf`)
+      .then((object) => {
+        object.scale.set(0.05, 0.05, 0.05)
+        root.add(object)
+      })
   }
 
   addMarker () {
@@ -191,7 +184,6 @@ class App {
 
     this.updateControls()
 
-    // this.smoothedControls.update(this.marker)
     this.renderer.render(this.scene, this.camera)
     this.stats.update()
   }
