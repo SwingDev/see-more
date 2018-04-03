@@ -19,6 +19,15 @@ const enableDevTools = () => {
   return { stats }
 }
 
+const getTorus = () => {
+  const geometry = new THREE.TorusKnotGeometry(0.3, 0.1, 64, 16)
+  const material = new THREE.MeshNormalMaterial()
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.position.y = 0.5
+
+  return mesh
+}
+
 class App {
   constructor () {
     this.controls = []
@@ -116,30 +125,14 @@ class App {
   }
 
   addModel (modelName, root) {
-    loadModel(`/${modelName}/${modelName}.gltf`)
-      .then((object) => {
-        object.scale.set(0.05, 0.05, 0.05)
-        root.add(object)
-      })
-  }
+    const torus = getTorus()
 
-  addMarker () {
-    this.marker = new THREE.Group()
-    this.scene.add(this.marker)
-
-    this.artoolkitMarker = new THREEx.ArMarkerControls(this.artoolkitContext, this.marker, {
-      type: 'pattern',
-      patternUrl: 'mck-marker.patt'
-    })
-
-    this.smoothedRoot = new THREE.Group()
-    this.scene.add(this.smoothedRoot)
-
-    this.smoothedControls = new THREEx.ArSmoothedControls(this.smoothedRoot, {
-      lerpPosition: 0.4,
-      lerpQuaternion: 0.3,
-      lerpScale: 1
-    })
+    root.add(torus)
+    // loadModel(`/${modelName}/${modelName}.gltf`)
+    //   .then((object) => {
+    //     object.scale.set(0.05, 0.05, 0.05)
+    //     root.add(object)
+    //   })
   }
 
   setComponents () {
