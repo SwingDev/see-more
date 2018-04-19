@@ -19,15 +19,6 @@ const enableDevTools = () => {
   return { stats }
 }
 
-const getTorus = () => {
-  const geometry = new THREE.TorusKnotGeometry(0.3, 0.1, 64, 16)
-  const material = new THREE.MeshNormalMaterial()
-  const mesh = new THREE.Mesh(geometry, material)
-  mesh.position.y = 0.5
-
-  return mesh
-}
-
 class App {
   constructor () {
     this.controls = []
@@ -56,7 +47,8 @@ class App {
 
     this.renderer = new THREE.WebGLRenderer({
       canvas: canvasEl,
-      alpha: true
+      alpha: true,
+      antialias: true
     })
     this.renderer.setPixelRatio(window.devicePixelRatio)
     this.renderer.setSize(window.innerWidth, window.innerHeight)
@@ -125,22 +117,11 @@ class App {
   }
 
   addModel (modelName, root) {
-    const torus = getTorus()
-
-    root.add(torus)
-    // loadModel(`/${modelName}/${modelName}.gltf`)
-    //   .then((object) => {
-    //     object.scale.set(0.05, 0.05, 0.05)
-    //     root.add(object)
-    //   })
-  }
-
-  setComponents () {
-    const torusGeometry = new THREE.TorusKnotGeometry(0.3, 0.1, 64, 16)
-    const torusMaterial = new THREE.MeshNormalMaterial()
-    const torusMesh = new THREE.Mesh(torusGeometry, torusMaterial)
-    torusMesh.position.y = 0.5
-    this.smoothedRoot.add(torusMesh)
+    loadModel(`/${modelName}/${modelName}.gltf`, this.renderer)
+      .then((object) => {
+        object.scale.set(0.007, 0.007, 0.007)
+        root.add(object)
+      })
   }
 
   updateControls () {

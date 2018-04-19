@@ -1,10 +1,14 @@
 import * as THREE from 'three'
-import { SKYBOX_TILES } from 'root/config'
+import { ENV_MAP_TILES } from 'root/config'
 
 import 'libs/PMREMGenerator'
 import 'libs/PMREMCubeUVPacker'
 
 const handleLoad = (texture, mesh, renderer) => {
+  texture.mapping = THREE.EquirectangularReflectionMapping
+  texture.magFilter = THREE.LinearFilter
+  texture.minFilter = THREE.LinearMipMapLinearFilter
+
   const pmremGenerator = new THREE.PMREMGenerator(texture)
   pmremGenerator.update(renderer)
 
@@ -17,5 +21,5 @@ const handleLoad = (texture, mesh, renderer) => {
 
 export default function (mesh, renderer) {
   const loader = new THREE.CubeTextureLoader()
-  loader.load(SKYBOX_TILES, (map) => handleLoad(map, mesh, renderer))
+  loader.load(ENV_MAP_TILES, (map) => handleLoad(map, mesh, renderer))
 }
