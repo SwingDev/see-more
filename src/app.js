@@ -47,7 +47,8 @@ class App {
 
     this.renderer = new THREE.WebGLRenderer({
       canvas: canvasEl,
-      alpha: true
+      alpha: true,
+      antialias: true
     })
     this.renderer.setPixelRatio(window.devicePixelRatio)
     this.renderer.setSize(window.innerWidth, window.innerHeight)
@@ -116,38 +117,11 @@ class App {
   }
 
   addModel (modelName, root) {
-    loadModel(`/${modelName}/${modelName}.gltf`)
+    loadModel(`/${modelName}/${modelName}.gltf`, this.renderer)
       .then((object) => {
-        object.scale.set(0.05, 0.05, 0.05)
+        object.scale.set(0.007, 0.007, 0.007)
         root.add(object)
       })
-  }
-
-  addMarker () {
-    this.marker = new THREE.Group()
-    this.scene.add(this.marker)
-
-    this.artoolkitMarker = new THREEx.ArMarkerControls(this.artoolkitContext, this.marker, {
-      type: 'pattern',
-      patternUrl: 'hiro.patt'
-    })
-
-    this.smoothedRoot = new THREE.Group()
-    this.scene.add(this.smoothedRoot)
-
-    this.smoothedControls = new THREEx.ArSmoothedControls(this.smoothedRoot, {
-      lerpPosition: 0.4,
-      lerpQuaternion: 0.3,
-      lerpScale: 1
-    })
-  }
-
-  setComponents () {
-    const torusGeometry = new THREE.TorusKnotGeometry(0.3, 0.1, 64, 16)
-    const torusMaterial = new THREE.MeshNormalMaterial()
-    const torusMesh = new THREE.Mesh(torusGeometry, torusMaterial)
-    torusMesh.position.y = 0.5
-    this.smoothedRoot.add(torusMesh)
   }
 
   updateControls () {
