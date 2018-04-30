@@ -7,8 +7,13 @@ GLTF2Loader(THREE)
 
 const handleLoad = (object, resolve, renderer) => {
   object.scene.traverse((child) => {
-    if (child.isMesh && child.material.isMeshStandardMaterial && child.name !== 'spaceship_outline_0') {
+    if (
+      child.isMesh &&
+      child.material.isMeshStandardMaterial &&
+      child.name !== 'spaceship_outline_0'
+    ) {
       addPmremEnvMap(child, renderer)
+      child.material.emissiveIntensity = 1
     }
   })
 

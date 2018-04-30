@@ -9,6 +9,7 @@
   },
   "author": "Mirosław Ciastek <miroslaw.ciastek@gmail.com>",
   "dependencies": {
+    "animejs": "^2.2.0",
     "lodash": "^4.17.4",
     "normalize.css": "^7.0.0",
     "stats.js": "^0.17.0",
