@@ -5,7 +5,7 @@ import Stats from 'stats.js'
 
 import { MARKER_MODELS } from './config'
 import makeLights from './components/Lights'
-import loadModel from './utils/model-loader'
+import Spaceship from './components/Spaceship'
 
 const enableDevTools = () => {
   const stats = new Stats()
@@ -27,8 +27,10 @@ class App {
     this.setRenderer()
     this.setLights()
 
-    this.setARToolkit()
-    this.addMarkers()
+    // this.setARToolkit()
+    // this.addMarkers()
+
+    this.addModel('spaceship_complete')
 
     this.stats = enableDevTools().stats
 
@@ -37,7 +39,8 @@ class App {
   }
 
   setScene () {
-    this.camera = new THREE.Camera()
+    // this.camera = new THREE.Camera()
+    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000)
     this.scene = new THREE.Scene()
     this.scene.add(this.camera)
   }
@@ -54,11 +57,14 @@ class App {
     this.renderer.setSize(window.innerWidth, window.innerHeight)
     this.renderer.gammaInput = true
     this.renderer.gammaOutput = true
-    this.renderer.setClearColor(new THREE.Color('lightgrey'), 0)
+    // this.renderer.setClearColor(new THREE.Color('lightgrey'), 0)
+    this.renderer.setClearColor(new THREE.Color('black'), 1)
   }
 
   setLights () {
     const { hemiLight } = makeLights()
+    const ambientLight = new THREE.AmbientLight()
+    // this.scene.add(ambientLight)
     this.scene.add(hemiLight)
   }
 
@@ -117,11 +123,17 @@ class App {
   }
 
   addModel (modelName, root) {
-    loadModel(`/${modelName}/${modelName}.gltf`, this.renderer)
-      .then((object) => {
-        object.scale.set(0.007, 0.007, 0.007)
-        root.add(object)
-      })
+    switch (modelName) {
+      case 'spaceship_complete':
+        const spaceship = new Spaceship(this.renderer)
+
+        spaceship.load()
+          .then((model) => this.scene.add(model))
+        break
+
+      default:
+        throw new Error(`No model found for "${modelName}"`)
+    }
   }
 
   updateControls () {
@@ -152,7 +164,7 @@ class App {
   };
 
   render () {
-    if (this.artoolkitSource.ready !== false) {
+    if (this.artoolkitSource && this.artoolkitSource.ready !== false) {
       this.artoolkitContext.update(this.artoolkitSource.domElement)
     }
 
