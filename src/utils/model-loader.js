@@ -1,4 +1,3 @@
-import * as THREE from 'three'
 import GLTF2Loader from 'three-gltf2-loader'
 
 import addPmremEnvMap from 'utils/pmrem-envmap'
