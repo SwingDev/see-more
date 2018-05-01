@@ -3,7 +3,7 @@ import Spaceship from 'components/Spaceship'
 import { MARKER_MODELS } from 'root/config'
 
 class ARDisplay {
-  constructor (renderer) {
+  constructor () {
     this.controls = []
     this.camera = new THREE.Camera()
   }
@@ -18,6 +18,13 @@ class ARDisplay {
     window.addEventListener('resize', this.handleResize)
   }
 
+  disable () {
+    this.renderer = null
+    this.scene = null
+
+    window.removeEventListener('resize', this.handleResize)
+  }
+
   setARToolkit () {
     const artoolkitProfile = new THREEx.ArToolkitProfile()
     artoolkitProfile.sourceWebcam()
@@ -25,7 +32,7 @@ class ARDisplay {
     this.artoolkitSource = new THREEx.ArToolkitSource(
       artoolkitProfile.sourceParameters
     )
-    this.artoolkitSource.init(this.handleResize)
+    this.artoolkitSource.init(this.handleResize, this.handleError)
 
     this.artoolkitContext = new THREEx.ArToolkitContext({
       ...artoolkitProfile.contextParameters,
@@ -102,6 +109,12 @@ class ARDisplay {
       this.artoolkitSource.copySizeTo(this.artoolkitContext.arController.canvas)
     }
   };
+
+  handleError = () => {
+    if (this.onError) {
+      this.onError()
+    }
+  }
 
   update () {
     if (this.artoolkitSource && this.artoolkitSource.ready !== false) {
