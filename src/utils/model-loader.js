@@ -4,7 +4,11 @@ import addPmremEnvMap from 'utils/pmrem-envmap'
 
 GLTF2Loader(THREE)
 
-const handleLoad = (object, resolve, renderer) => {
+const MODEL_CACHE = {}
+
+const handleLoad = ({ object, resolve, renderer, url }) => {
+  MODEL_CACHE[url] = object
+
   object.scene.traverse((child) => {
     if (
       child.isMesh &&
@@ -23,6 +27,20 @@ export default function (url, renderer) {
   const loader = new THREE.GLTFLoader()
 
   return new Promise((resolve) => {
-    loader.load(url, (object) => handleLoad(object, resolve, renderer))
+    if (MODEL_CACHE[url]) {
+      handleLoad({
+        object: MODEL_CACHE[url],
+        resolve,
+        renderer,
+        url
+      })
+    } else {
+      loader.load(url, (object) => handleLoad({
+        object,
+        resolve,
+        renderer,
+        url
+      }))
+    }
   })
 }
