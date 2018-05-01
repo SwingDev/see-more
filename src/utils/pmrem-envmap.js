@@ -1,4 +1,3 @@
-import * as THREE from 'three'
 import { ENV_MAP_TILES } from 'root/config'
 
 import 'libs/PMREMGenerator'

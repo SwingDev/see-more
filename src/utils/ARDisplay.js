@@ -1,6 +1,6 @@
 import Spaceship from 'components/Spaceship'
 
-import { MARKER_MODELS } from 'config'
+import { MARKER_MODELS } from 'root/config'
 
 class ARDisplay {
   constructor (renderer) {
