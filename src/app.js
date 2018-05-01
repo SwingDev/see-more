@@ -9,7 +9,8 @@ import makeLights from 'components/Lights'
 
 class App {
   constructor () {
-    this.display = new DefaultDisplay()
+    this.disabled = false
+    this.display = new ARDisplay()
     this.stats = enableDevTools().stats
 
     this.setRenderer()
@@ -21,6 +22,7 @@ class App {
   }
 
   setDisplay () {
+    this.display.onError = this.handleARDisplayError
     this.display.init(this.renderer, this.scene)
   }
 
@@ -51,7 +53,24 @@ class App {
     this.scene.add(hemiLight)
   }
 
+  handleARDisplayError = () => {
+    this.display.disable()
+
+    this.disabled = true
+    this.display = new DefaultDisplay()
+
+    this.setScene()
+    this.setLights()
+    this.display.init(this.renderer, this.scene)
+
+    this.disabled = false
+
+    this.animate()
+  }
+
   animate = () => {
+    if (this.disabled) return
+
     this.render()
     requestAnimationFrame(this.animate)
   };
