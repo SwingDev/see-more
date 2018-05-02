@@ -57,6 +57,7 @@ class App {
     this.display.disable()
 
     this.disabled = true
+    cancelAnimationFrame(this.rafId)
     this.display = new DefaultDisplay()
 
     this.setScene()
@@ -72,7 +73,7 @@ class App {
     if (this.disabled) return
 
     this.render()
-    requestAnimationFrame(this.animate)
+    this.rafId = requestAnimationFrame(this.animate)
   };
 
   render () {

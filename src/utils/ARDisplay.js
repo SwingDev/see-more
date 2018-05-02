@@ -13,12 +13,31 @@ class ARDisplay {
     this.scene = scene
 
     this.setARToolkit()
-    this.addMarkers()
 
     window.addEventListener('resize', this.handleResize)
   }
 
+  clear () {
+    this.scene.traverse((object) => {
+      if (object.geometry) {
+        object.geometry.dispose()
+        object.geometry = null
+      }
+
+      if (object.material) {
+        object.material.dispose()
+        object.material = null
+      }
+    })
+
+    this.scene.children.forEach((object) => {
+      this.scene.remove(object)
+    })
+  }
+
   disable () {
+    this.clear()
+
     this.renderer = null
     this.scene = null
 
@@ -32,7 +51,8 @@ class ARDisplay {
     this.artoolkitSource = new THREEx.ArToolkitSource(
       artoolkitProfile.sourceParameters
     )
-    this.artoolkitSource.init(this.handleResize, this.handleError)
+
+    this.artoolkitSource.init(this.handleInit, this.handleError)
 
     this.artoolkitContext = new THREEx.ArToolkitContext({
       ...artoolkitProfile.contextParameters,
@@ -100,6 +120,11 @@ class ARDisplay {
       }
     }
   }
+
+  handleInit = () => {
+    this.addMarkers()
+    this.handleResize()
+  };
 
   handleResize = () => {
     this.artoolkitSource.onResize()
