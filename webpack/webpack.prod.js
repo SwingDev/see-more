@@ -14,6 +14,7 @@ const STATIC_DIR = path.resolve(__dirname, '..', 'dist')
 const extractStyles = new ExtractTextPlugin('styles.[contenthash].css')
 
 module.exports = merge(base, {
+  mode: 'production',
   devtool: false,
   output: {
     path: STATIC_DIR,

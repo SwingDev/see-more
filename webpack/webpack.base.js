@@ -60,14 +60,6 @@ module.exports = {
       systemvars: true
     }),
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks (module, count) {
-        const { context, resource } = module
-        const notStyle = !/\.s?css/.test(resource)
-        return context && context.indexOf('node_modules') >= 0 && notStyle
-      }
-    }),
     new HtmlWebpackPlugin(
       {
         filename: 'index.html',
@@ -77,5 +69,11 @@ module.exports = {
     new CopyWebpackPlugin([{
       from: './src/public'
     }])
-  ]
+  ],
+  optimization: {
+    splitChunks: {
+      name: 'vendor',
+      chunks: 'all'
+    }
+  }
 }
