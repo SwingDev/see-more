@@ -6,6 +6,8 @@ const CircularDependencyPlugin = require('circular-dependency-plugin')
 const base = require('./webpack.base')
 
 module.exports = merge(base, {
+  mode: 'development',
+  devtool: 'inline-source-map',
   entry: [
     'webpack-dev-server/client?http://0.0.0.0:3000',
     'webpack/hot/only-dev-server'
@@ -50,7 +52,9 @@ module.exports = merge(base, {
       exclude: /a\.js|node_modules/,
       failOnError: true
     }),
-    new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin()
-  ]
+  ],
+  optimization: {
+    namedModules: true
+  }
 })
