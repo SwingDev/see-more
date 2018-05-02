@@ -45,6 +45,7 @@ module.exports = {
       images: path.resolve(__dirname, '..', 'src/images'),
       components: path.resolve(__dirname, '..', 'src/components'),
       controls: path.resolve(__dirname, '..', 'src/controls'),
+      store: path.resolve(__dirname, '..', 'src/store'),
       views: path.resolve(__dirname, '..', 'src/views'),
       utils: path.resolve(__dirname, '..', 'src/utils'),
       libs: path.resolve(__dirname, '..', 'src/libs'),

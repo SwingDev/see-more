@@ -12,6 +12,8 @@
     "animejs": "^2.2.0",
     "lodash": "^4.17.4",
     "normalize.css": "^7.0.0",
+    "redux": "^4.0.0",
+    "redux-logger": "^3.0.6",
     "stats.js": "^0.17.0",
     "three": "^0.89.0",
     "three-gltf2-loader": "^1.2.0"
