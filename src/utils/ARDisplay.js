@@ -127,11 +127,11 @@ class ARDisplay {
   };
 
   handleResize = () => {
-    this.artoolkitSource.onResize()
-    this.artoolkitSource.copySizeTo(this.renderer.domElement)
+    this.artoolkitSource.onResizeElement()
+    this.artoolkitSource.copyElementSizeTo(this.renderer.domElement)
 
     if (this.artoolkitContext.arController !== null) {
-      this.artoolkitSource.copySizeTo(this.artoolkitContext.arController.canvas)
+      this.artoolkitSource.copyElementSizeTo(this.artoolkitContext.arController.canvas)
     }
   };
 

@@ -24,13 +24,21 @@ module.exports = merge(base, {
   module: {
     rules: [
       {
-        test: /src\/(.*)\.scss$/,
+        test: /src\/(.*)\.s?css$/,
         exclude: /node_modules/,
         use: [
-          'style-loader?sourceMap',
-          'css-loader?sourceMap',
+          'style-loader?sourceMap&insertAt=top',
+          {
+            loader: 'css-loader',
+            options: {
+              localIdentName: '[folder]__[local]--[hash:base64:5]',
+              modules: true,
+              importLoaders: 1,
+              sourceMap: true
+            }
+          },
           'postcss-loader?sourceMap',
-          'resolve-url-loader',
+          'resolve-url-loader?sourceMap',
           'sass-loader?sourceMap'
         ]
       },
@@ -41,7 +49,7 @@ module.exports = merge(base, {
           'style-loader?sourceMap',
           'css-loader?sourceMap',
           'postcss-loader?sourceMap',
-          'resolve-url-loader',
+          'resolve-url-loader?sourceMap',
           'sass-loader?sourceMap'
         ]
       }

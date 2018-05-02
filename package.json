@@ -10,6 +10,8 @@
   "author": "Mirosław Ciastek <miroslaw.ciastek@gmail.com>",
   "dependencies": {
     "animejs": "^2.2.0",
+    "classnames": "^2.2.5",
+    "lit-html": "^0.9.0",
     "lodash": "^4.17.4",
     "normalize.css": "^7.0.0",
     "redux": "^4.0.0",
@@ -46,6 +48,7 @@
     "eslint-plugin-standard": "^3.0.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "^1.1.6",
+    "handlebars-loader": "^1.7.0",
     "html-webpack-plugin": "^3.0.6",
     "imagemin-jpegoptim": "^5.1.0",
     "imagemin-webpack-plugin": "^2.1.1",

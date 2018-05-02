@@ -1,6 +1,8 @@
 import anime from 'animejs'
 
-import loadModel from '../utils/model-loader'
+import store from 'store'
+import { setLoaded } from 'store/actions'
+import loadModel from 'utils/model-loader'
 
 class Spaceship {
   fileName = 'spaceship_complete'
@@ -62,12 +64,11 @@ class Spaceship {
   handleLoad = (object) => {
     this.object = object
     this.object.scale.set(0.007, 0.007, 0.007)
-    this.object.position.set(0, 0, -5)
-    this.object.rotation.set(THREE.Math.degToRad(45), THREE.Math.degToRad(0), 0)
-    console.log(this.object)
 
     this.animateThruster()
     this.animateGlow()
+
+    store.dispatch(setLoaded())
 
     return this.object
   };
