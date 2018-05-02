@@ -24,8 +24,15 @@ class DefaultDisplay {
     const spaceship = new Spaceship(this.renderer)
 
     spaceship.load()
-      .then((model) => this.scene.add(model))
+      .then(this.handleModelLoad)
   }
+
+  handleModelLoad = (model) => {
+    model.position.set(0, 0, -5)
+    model.rotation.set(THREE.Math.degToRad(45), THREE.Math.degToRad(0), 0)
+
+    this.scene.add(model)
+  };
 
   handleResize = () => {
     this.camera.aspect = window.innerWidth / window.innerHeight

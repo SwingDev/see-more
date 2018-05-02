@@ -6,17 +6,23 @@ import ARDisplay from 'utils/ARDisplay'
 import DefaultDisplay from 'utils/DefaultDisplay'
 
 import makeLights from 'components/Lights'
+import renderComponents from 'components/ui'
 
 class App {
   constructor () {
     this.disabled = false
     this.display = new ARDisplay()
-    this.stats = enableDevTools().stats
+
+    if (process.env.NODE_ENV === 'development') {
+      this.stats = enableDevTools().stats
+    }
 
     this.setRenderer()
     this.setScene()
     this.setLights()
     this.setDisplay()
+
+    renderComponents()
 
     this.animate()
   }
@@ -83,7 +89,9 @@ class App {
       this.display.update()
     }
 
-    this.stats.update()
+    if (process.env.NODE_ENV === 'development') {
+      this.stats.update()
+    }
   }
 }
 

@@ -1,0 +1,38 @@
+@import '~styles/utils/animations';
+
+.root {
+  @include fade-in;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background: url('images/screen-bg.png') no-repeat;
+  background-color: #fff;
+  background-position: center center;
+  background-size: cover;
+
+  &.hidden {
+    @include fade-out;
+  }
+}
+
+.logo {
+  width: 257px;
+  height: 63px;
+}
+
+.logo + .banner {
+  margin-top: 36px;
+}
+
+.banner {
+  width: 604px;
+  height: 97px;
+}

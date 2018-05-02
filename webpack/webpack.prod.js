@@ -26,20 +26,24 @@ module.exports = merge(base, {
       {
         test: /src\/(.*)\.s?css$/,
         use: extractStyles.extract({
-          fallback: 'style-loader',
+          fallback: 'style-loader?sourceMap',
           use: [
             {
               loader: 'css-loader',
               options: {
+                localIdentName: '[hash:base64:6]',
+                modules: true,
+                importLoaders: 1,
                 minimize: {
                   discardComments: {
                     removeAll: true
                   }
-                }
+                },
+                sourceMap: true
               }
             },
-            'postcss-loader',
-            'resolve-url-loader',
+            'postcss-loader?sourceMap',
+            'resolve-url-loader?sourceMap',
             'sass-loader?sourceMap'
           ]
         })
@@ -48,7 +52,7 @@ module.exports = merge(base, {
         test: /node_modules\/(.*)\.s?css$/,
         exclude: /src\/(.*)\.scss$/,
         use: extractStyles.extract({
-          fallback: 'style-loader',
+          fallback: 'style-loader?sourceMap',
           use: [
             {
               loader: 'css-loader',
@@ -57,11 +61,12 @@ module.exports = merge(base, {
                   discardComments: {
                     removeAll: true
                   }
-                }
+                },
+                sourceMap: true
               }
             },
-            'postcss-loader',
-            'resolve-url-loader',
+            'postcss-loader?sourceMap',
+            'resolve-url-loader?sourceMap',
             'sass-loader?sourceMap'
           ]
         })
