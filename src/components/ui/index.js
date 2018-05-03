@@ -1,16 +1,17 @@
 import { render } from 'lit-html'
 
 import store from 'store'
-import SplashScreen from './SplashScreen'
+
+import './NoScriptMessage/styles.scss'
+import updateSplashScreen from './SplashScreen'
 
 const container = document.getElementById('ui')
 
 store.subscribe(() => {
   const { loaded } = store.getState()
 
-  render(SplashScreen(loaded), container)
+  updateSplashScreen(loaded)
 })
 
 export default function () {
-  render(SplashScreen(), container)
 }

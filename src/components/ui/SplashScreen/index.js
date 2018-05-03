@@ -1,22 +1,7 @@
-import { html } from 'lit-html'
-import classNames from 'classnames'
+import './styles.scss'
 
-import LogoImg from 'images/logo.svg'
-import BannerImg from 'images/banner.svg'
+const splashScreen = document.querySelector('.js-splash-screen')
 
-import styles from './styles.scss'
-
-const SplashScreen = (isHidden = false) => {
-  const classes = classNames(styles.root, {
-    [styles.hidden]: isHidden
-  })
-
-  return html`
-    <div class="${classes}">
-      <img class="${styles.logo}" src="${LogoImg}" alt="SwingDev" />
-      <img class="${styles.banner}" src="${BannerImg}" alt="See more" />
-    </div>
-  `
+export default function (loaded = false) {
+  splashScreen.classList.toggle('is-hidden', loaded)
 }
-
-export default SplashScreen
