@@ -111,4 +111,11 @@ canvas {
   position: absolute;
   top: 0;
   left: 0;
+
+  &.has-background {
+    background-image: url('images/scene-bg.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 }

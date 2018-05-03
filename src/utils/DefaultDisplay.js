@@ -16,8 +16,13 @@ class DefaultDisplay {
 
     this.handleResize()
     this.addModel()
+    this.setSceneBackground()
 
     window.addEventListener('resize', this.handleResize)
+  }
+
+  setSceneBackground () {
+    this.renderer.domElement.classList.add('has-background')
   }
 
   addModel () {

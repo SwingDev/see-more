@@ -12,6 +12,7 @@ class ARDisplay {
     this.renderer = renderer
     this.scene = scene
 
+    this.clearSceneBackground()
     this.setARToolkit()
 
     window.addEventListener('resize', this.handleResize)
@@ -42,6 +43,10 @@ class ARDisplay {
     this.scene = null
 
     window.removeEventListener('resize', this.handleResize)
+  }
+
+  clearSceneBackground () {
+    this.renderer.domElement.classList.remove('has-background')
   }
 
   setARToolkit () {

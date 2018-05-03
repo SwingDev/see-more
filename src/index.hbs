@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
     <script async src="{{htmlWebpackPlugin.files.modernizr}}"></script>
   </head>
   <body>
@@ -14,7 +13,7 @@
     {{> SplashScreen/template}}
 
     <div id="ui"></div>
-    <canvas id="scene"></canvas>
+    <canvas id="scene" class="has-background"></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/90/three.js"></script>
     <script src="ar.min.js"></script>
   </body>
