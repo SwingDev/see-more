@@ -31,9 +31,6 @@ module.exports = merge(base, {
             {
               loader: 'css-loader',
               options: {
-                localIdentName: '[hash:base64:6]',
-                modules: true,
-                importLoaders: 1,
                 minimize: {
                   discardComments: {
                     removeAll: true

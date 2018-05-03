@@ -28,15 +28,7 @@ module.exports = merge(base, {
         exclude: /node_modules/,
         use: [
           'style-loader?sourceMap&insertAt=top',
-          {
-            loader: 'css-loader',
-            options: {
-              localIdentName: '[folder]__[local]--[hash:base64:5]',
-              modules: true,
-              importLoaders: 1,
-              sourceMap: true
-            }
-          },
+          'css-loader?sourceMap',
           'postcss-loader?sourceMap',
           'resolve-url-loader?sourceMap',
           'sass-loader?sourceMap'
