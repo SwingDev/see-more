@@ -11,3 +11,11 @@ export const ENV_MAP_TILES = [
   require('images/env-map/pz.jpg'),
   require('images/env-map/nz.jpg')
 ]
+
+export const BREAKPOINTS = {
+  xSmall: 480,
+  small: 768,
+  medium: 992,
+  large: 1200,
+  xLarge: 1920
+}
