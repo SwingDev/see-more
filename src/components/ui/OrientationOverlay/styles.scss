@@ -1,0 +1,21 @@
+@import '~styles/base/colors';
+@import '~styles/utils/animations';
+
+.orientation-overlay {
+  @include fade-out;
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $white;
+
+  &.is-active {
+    @include fade-in;
+  }
+}
