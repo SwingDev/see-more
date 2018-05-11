@@ -1,5 +1,19 @@
 @import '~styles/base/colors';
 @import '~styles/utils/animations';
+@import '~styles/utils/ui';
+
+$base-width: 1334;
+$base-margin: 36;
+
+$logo-width: 257;
+$logo-height: 63;
+$logo-ratio: $logo-height / $logo-width;
+$logo-vw: calc-vw($logo-width, $base-width);
+
+$banner-width: 604;
+$banner-height: 97;
+$banner-ratio: $banner-height / $banner-width;
+$banner-vw: calc-vw($banner-width, $base-width);
 
 .splash-screen {
   @include fade-in;
@@ -9,7 +23,7 @@
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 9;
+  z-index: 10;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -23,23 +37,35 @@
     @include fade-out;
   }
 
+  &__logo,
+  &__banner {
+    margin: 0;
+  }
+
   &__logo svg,
   &__banner svg {
     display: block;
   }
 
-  &__logo {
-    width: 257px;
-    height: 63px;
+  &__logo svg {
+    width: $logo-vw;
+    height: $logo-ratio * $logo-vw;
+    max-width: #{$logo-width}px;
+    max-height: #{$logo-height}px;
   }
 
-  &__logo + &__banner {
-    margin-top: 36px;
+  &__logo + &__banner::before {
+    display: block;
+    height: ($base-margin / $banner-width) * $banner-vw;
+    max-height: #{$base-margin}px;
+    content: '';
   }
 
-  &__banner {
-    width: 604px;
-    height: 97px;
+  &__banner svg {
+    width: $banner-vw;
+    height: $banner-ratio * $banner-vw;
+    max-width: #{$banner-width}px;
+    max-height: #{$banner-height}px;
   }
 
   &__hidden {

@@ -27,7 +27,7 @@ class FullscreenButton {
   handleClick = (event) => {
     if (event.target.classList.contains('fullscreen-button')) {
       if (screenfull.enabled) {
-        screenfull.request(document.getElementById('scene'))
+        screenfull.toggle()
       }
     }
   };
