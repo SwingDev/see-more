@@ -59,6 +59,9 @@ class ARDisplay {
 
     this.artoolkitSource.init(this.handleInit, this.handleError)
 
+    // Fix wrong z-index defined by AR.js
+    this.artoolkitSource.domElement.style.zIndex = '1'
+
     this.artoolkitContext = new THREEx.ArToolkitContext({
       ...artoolkitProfile.contextParameters,
       cameraParametersUrl: 'camera_para.dat',
@@ -136,7 +139,9 @@ class ARDisplay {
     this.artoolkitSource.copyElementSizeTo(this.renderer.domElement)
 
     if (this.artoolkitContext.arController !== null) {
-      this.artoolkitSource.copyElementSizeTo(this.artoolkitContext.arController.canvas)
+      this.artoolkitSource.copyElementSizeTo(
+        this.artoolkitContext.arController.canvas
+      )
     }
   };
 

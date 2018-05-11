@@ -111,6 +111,7 @@ canvas {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 2;
 
   &.has-background {
     background-image: url('images/scene-bg.jpg');
