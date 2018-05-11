@@ -26,7 +26,16 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.(jpe?g|png|gif|svg)$/i,
+        test: /\.svg$/i,
+        oneOf: [{
+          resourceQuery: /inline/,
+          use: 'svg-inline-loader'
+        }, {
+          use: 'file-loader?hash=sha512&digest=hex&name=[hash].[ext]'
+        }]
+      },
+      {
+        test: /\.(jpe?g|png|gif)$/i,
         use: [
           'file-loader?hash=sha512&digest=hex&name=[hash].[ext]'
         ]

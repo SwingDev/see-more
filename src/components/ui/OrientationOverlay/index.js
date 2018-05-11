@@ -1,4 +1,4 @@
-import { html, render } from 'lit-html'
+import { html } from 'lit-html'
 import classNames from 'classnames'
 
 import { BREAKPOINTS } from 'root/config'
@@ -6,16 +6,16 @@ import { BREAKPOINTS } from 'root/config'
 import './styles.scss'
 
 class OrientationOverlay {
-  constructor (container) {
-    this.container = container
-  }
-
   init () {
     this.handleOrientationChange()
     window.addEventListener(
       'orientationchange',
       this.handleOrientationChange
     )
+
+    if (!this.onUpdate) {
+      throw new Error('OrientationOverlay has no "onUpdate" method!')
+    }
   }
 
   handleOrientationChange = () => {
@@ -43,10 +43,9 @@ class OrientationOverlay {
       </div>
     `
 
-    render(
-      template,
-      this.container
-    )
+    if (this.onUpdate) {
+      this.onUpdate(template)
+    }
   }
 }
 

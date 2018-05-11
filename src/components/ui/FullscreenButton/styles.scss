@@ -1,0 +1,27 @@
+@import '~styles/base/colors';
+
+.fullscreen-button {
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+  z-index: 3;
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  line-height: 51px;
+  text-align: center;
+  cursor: pointer;
+  background-color: rgba($black, .4);
+  border: 2px solid $white;
+  border-radius: 2px;
+  outline: 0;
+
+  &__icon {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    margin-top: -3px;
+    vertical-align: middle;
+    pointer-events: none;
+  }
+}

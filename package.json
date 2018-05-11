@@ -16,6 +16,7 @@
     "normalize.css": "^7.0.0",
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
+    "screenfull": "^3.3.2",
     "stats.js": "^0.17.0",
     "three": "^0.89.0",
     "three-gltf2-loader": "^1.2.0"
@@ -69,6 +70,7 @@
     "stylelint-config-standard": "^17.0.0",
     "stylelint-order": "^0.7.0",
     "stylelint-scss": "^2.1.0",
+    "svg-inline-loader": "^0.8.0",
     "svgo": "^1.0.3",
     "url-loader": "^1.0.1",
     "webpack": "^4.1.1",
