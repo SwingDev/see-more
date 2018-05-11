@@ -1,19 +1,54 @@
+import { html, render } from 'lit-html'
+
 import store from 'store'
 
 import './NoScriptMessage/styles.scss'
 import updateSplashScreen from './SplashScreen'
 import OrientationOverlay from './OrientationOverlay'
+import FullscreenButton from './FullscreenButton'
 
-const container = document.getElementById('ui')
+class Root {
+  constructor () {
+    this.container = document.getElementById('ui')
 
-store.subscribe(() => {
-  const { loaded } = store.getState()
+    this.components = [
+      new FullscreenButton(this.container),
+      new OrientationOverlay()
+    ]
 
-  updateSplashScreen(loaded)
-})
+    this.templates = []
 
-export default function () {
-  const overlay = new OrientationOverlay(container)
+    this.subscribeStore()
+    this.setComponents()
+  }
 
-  overlay.init()
+  setComponents () {
+    this.components.forEach((component, index) => {
+      component.onUpdate = (template) => {
+        this.templates[index] = template
+        this.render()
+      }
+
+      component.init()
+    })
+  }
+
+  subscribeStore () {
+    store.subscribe(() => {
+      const { loaded } = store.getState()
+
+      updateSplashScreen(loaded)
+    })
+  }
+
+  render () {
+    const template = html`
+      ${this.templates}
+    `
+    console.log('render', this.templates)
+
+    render(template, this.container)
+  }
 }
+
+export default () => new Root()
