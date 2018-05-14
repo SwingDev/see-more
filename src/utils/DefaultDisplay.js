@@ -1,5 +1,23 @@
 import Spaceship from 'components/Spaceship'
 
+const INITIAL_ROTATION = {
+  x: 45,
+  y: 0,
+  z: 0
+}
+
+const MAX_ROTATION_X = 15
+const MAX_ROTATION_Y = 15
+const MAX_ROTATION_Z = 15
+
+const getDumped = (value, min, max) => (
+  (value > max)
+    ? max
+    : (value < min)
+      ? min
+      : value
+)
+
 class DefaultDisplay {
   constructor () {
     this.camera = new THREE.PerspectiveCamera(
@@ -8,6 +26,9 @@ class DefaultDisplay {
       1,
       1000
     )
+
+    this.deviceOrientation = null
+    this.screenOrientation = 0
   }
 
   init (renderer, scene) {
@@ -18,7 +39,19 @@ class DefaultDisplay {
     this.addModel()
     this.setSceneBackground()
 
+    this.handleScreenOrientationChange()
+
     window.addEventListener('resize', this.handleResize)
+
+    window.addEventListener(
+      'deviceorientation',
+      this.handleDeviceOrientationChange
+    )
+
+    window.addEventListener(
+      'orientationchange',
+      this.handleScreenOrientationChange
+    )
   }
 
   setSceneBackground () {
@@ -32,11 +65,40 @@ class DefaultDisplay {
       .then(this.handleModelLoad)
   }
 
-  handleModelLoad = (model) => {
-    model.position.set(0, 0, -5)
-    model.rotation.set(THREE.Math.degToRad(45), THREE.Math.degToRad(0), 0)
+  rotateModel () {
+    if (!this.deviceOrientation) return
 
-    this.scene.add(model)
+    const { alpha, beta, gamma } = this.deviceOrientation
+
+    if (this.model) {
+      const rotationX = INITIAL_ROTATION.x + (
+        ((this.screenOrientation) ? gamma / this.screenOrientation : 0)
+      ) * MAX_ROTATION_X
+
+      const rotationY = getDumped(
+        alpha - this.screenOrientation,
+        -MAX_ROTATION_Y,
+        MAX_ROTATION_Y
+      )
+
+      const rotationZ = getDumped(beta, -MAX_ROTATION_Z, MAX_ROTATION_Z)
+
+      this.model.rotation.x = THREE.Math.degToRad(rotationX)
+      this.model.rotation.y = THREE.Math.degToRad(rotationY)
+      this.model.rotation.z = THREE.Math.degToRad(rotationZ)
+    }
+  }
+
+  handleModelLoad = (model) => {
+    this.model = model
+    this.model.position.set(0, 0, -5)
+    this.model.rotation.set(
+      THREE.Math.degToRad(INITIAL_ROTATION.x),
+      THREE.Math.degToRad(INITIAL_ROTATION.y),
+      0
+    )
+
+    this.scene.add(this.model)
   };
 
   handleResize = () => {
@@ -45,6 +107,24 @@ class DefaultDisplay {
 
     this.renderer.setSize(window.innerWidth, window.innerHeight)
   };
+
+  handleDeviceOrientationChange = (event) => {
+    this.deviceOrientation = {
+      alpha: event.alpha,
+      beta: event.beta,
+      gamma: event.gamma
+    }
+  };
+
+  handleScreenOrientationChange = () => {
+    this.screenOrientation = ('orientation' in window.screen)
+      ? window.screen.orientation.angle
+      : window.orientation
+  };
+
+  update () {
+    this.rotateModel()
+  }
 }
 
 export default DefaultDisplay
