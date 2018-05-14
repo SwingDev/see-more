@@ -4,6 +4,10 @@ import classNames from 'classnames'
 import { BREAKPOINTS } from 'root/config'
 import { pageVisibility } from 'utils/prefixed'
 
+import Logo from 'images/logo.svg'
+import Banner from 'images/banner.svg'
+import RotateIllustration from 'images/rotate.svg'
+
 import './styles.scss'
 
 class OrientationOverlay {
@@ -44,9 +48,31 @@ class OrientationOverlay {
     })
 
     const template = html`
-      <div class="${classes}">
-        Please rotate your device to landscape mode
-      </div>
+      <section class="${classes}">
+        <div class="orientation-overlay__content">
+          <img
+            class="orientation-overlay__logo"
+            src="${Logo}"
+            alt="SwingDev"
+          />
+
+          <img
+            class="orientation-overlay__banner"
+            src="${Banner}"
+            alt="See more"
+          />
+
+          <p class="orientation-overlay__message">
+            Rotate your device to horizontal position
+          </p>
+
+          <img
+            class="orientation-overlay__img"
+            src="${RotateIllustration}"
+            alt=""
+          />
+        </div>
+      </section>
     `
 
     if (this.onUpdate) {

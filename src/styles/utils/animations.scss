@@ -24,18 +24,18 @@
   transition: opacity $duration $easing 0s, transform $duration $easing 0s, visibility 0s $easing $duration;
 }
 
-@mixin scale-up($duration: .2s, $easing: linear) {
+@mixin scale-up($duration: .2s, $easing: linear, $origin: 50% 50%) {
   opacity: 1;
   visibility: visible;
   transform: scale(1);
   transition: opacity $duration, transform $duration $easing;
-  transform-origin: 50% 0;
+  transform-origin: #{$origin};
 }
 
-@mixin scale-down($scale: 0, $duration: .2s, $easing: linear) {
+@mixin scale-down($scale: 0, $duration: .2s, $easing: linear, $origin: 50% 50%) {
   opacity: 0;
   visibility: hidden;
   transform: scale($scale);
   transition: opacity $duration, transform $duration $easing, visibility 0s $duration;
-  transform-origin: 50% 0;
+  transform-origin: #{$origin};
 }

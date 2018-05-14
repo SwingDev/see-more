@@ -1,9 +1,10 @@
 @import '~styles/base/colors';
+@import '~styles/base/settings';
 @import '~styles/utils/animations';
 @import '~styles/utils/ui';
 
-$base-width: 1334;
 $base-margin: 36;
+$base-width: 1334;
 
 $logo-width: 257;
 $logo-height: 63;
