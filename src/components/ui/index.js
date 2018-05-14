@@ -45,7 +45,6 @@ class Root {
     const template = html`
       ${this.templates}
     `
-    console.log('render', this.templates)
 
     render(template, this.container)
   }

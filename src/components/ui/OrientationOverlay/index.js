@@ -2,6 +2,7 @@ import { html } from 'lit-html'
 import classNames from 'classnames'
 
 import { BREAKPOINTS } from 'root/config'
+import { pageVisibility } from 'utils/prefixed'
 
 import './styles.scss'
 
@@ -10,6 +11,11 @@ class OrientationOverlay {
     this.handleOrientationChange()
     window.addEventListener(
       'orientationchange',
+      this.handleOrientationChange
+    )
+
+    document.addEventListener(
+      pageVisibility.visibilityChange,
       this.handleOrientationChange
     )
 

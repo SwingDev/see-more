@@ -50,6 +50,7 @@
     "process": true,
     "module": true,
     "THREE": true,
-    "THREEx": true
+    "THREEx": true,
+    "Modernizr": true
   }
 }
