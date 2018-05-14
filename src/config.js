@@ -1,6 +1,8 @@
+export const SPACESHIP_FILE_NAME = 'spaceship_decal_ver'
+
 export const MARKER_MODELS = [{
   file: 'hiro.patt',
-  modelName: 'spaceship_complete'
+  modelName: 'spaceship'
 }]
 
 export const ENV_MAP_TILES = [

@@ -1,18 +1,20 @@
 import anime from 'animejs'
 
 import store from 'store'
+import { SPACESHIP_FILE_NAME } from 'root/config'
 import { setLoaded } from 'store/actions'
 import loadModel from 'utils/model-loader'
 
 class Spaceship {
-  fileName = 'spaceship_complete'
-
   constructor (renderer) {
     this.renderer = renderer
   }
 
   load () {
-    return loadModel(`/${this.fileName}/${this.fileName}.gltf`, this.renderer)
+    return loadModel(
+      `/${SPACESHIP_FILE_NAME}/${SPACESHIP_FILE_NAME}.gltf`,
+      this.renderer
+    )
       .then(this.handleLoad)
   }
 

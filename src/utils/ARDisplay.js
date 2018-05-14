@@ -109,7 +109,7 @@ class ARDisplay {
 
   addModel (modelName, root) {
     switch (modelName) {
-      case 'spaceship_complete':
+      case 'spaceship':
         const spaceship = new Spaceship(this.renderer)
 
         spaceship.load()

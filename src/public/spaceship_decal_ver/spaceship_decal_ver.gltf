@@ -101,6 +101,40 @@
       "componentType": 5126,
       "count": 5198,
       "type": "VEC2"
+    },
+    {
+      "bufferView": 12,
+      "componentType": 5125,
+      "count": 12,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 13,
+      "componentType": 5126,
+      "count": 8,
+      "max": [
+        0.635743021965027,
+        0.0416514277458191,
+        0.340444266796112
+      ],
+      "min": [
+        0.254401087760925,
+        0.0416514277458191,
+        -0.341030567884445
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 14,
+      "componentType": 5126,
+      "count": 8,
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 15,
+      "componentType": 5126,
+      "count": 8,
+      "type": "VEC2"
     }
   ],
   "asset": {
@@ -178,11 +212,35 @@
       "byteLength": 41584,
       "byteOffset": 345432,
       "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 48,
+      "byteOffset": 387016,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 96,
+      "byteOffset": 387064,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 96,
+      "byteOffset": 387160,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 64,
+      "byteOffset": 387256,
+      "target": 34962
     }
   ],
   "buffers": [
     {
-      "byteLength": 387016,
+      "byteLength": 387320,
       "uri": "spaceship_complete.bin"
     }
   ],
@@ -198,6 +256,15 @@
     },
     {
       "uri": "body_emissive.png"
+    },
+    {
+      "uri": "decal_baseColor.png"
+    },
+    {
+      "uri": "decal_occlusionRoughnessMetallic.png"
+    },
+    {
+      "uri": "decal_normal.png"
     },
     {
       "uri": "exhaust_baseColor.png"
@@ -250,15 +317,7 @@
     },
     {
       "alphaMode": "BLEND",
-      "emissiveFactor": [
-        1.0,
-        1.0,
-        1.0
-      ],
-      "emissiveTexture": {
-        "index": 7
-      },
-      "name": "exhaust",
+      "name": "decal",
       "normalTexture": {
         "index": 6
       },
@@ -276,19 +335,45 @@
     },
     {
       "alphaMode": "BLEND",
-      "name": "outline",
-      "normalTexture": {
+      "emissiveFactor": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "emissiveTexture": {
         "index": 10
       },
-      "occlusionTexture": {
+      "name": "exhaust",
+      "normalTexture": {
         "index": 9
+      },
+      "occlusionTexture": {
+        "index": 8
       },
       "pbrMetallicRoughness": {
         "baseColorTexture": {
-          "index": 8
+          "index": 7
         },
         "metallicRoughnessTexture": {
-          "index": 9
+          "index": 8
+        }
+      }
+    },
+    {
+      "alphaMode": "BLEND",
+      "name": "outline",
+      "normalTexture": {
+        "index": 13
+      },
+      "occlusionTexture": {
+        "index": 12
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 11
+        },
+        "metallicRoughnessTexture": {
+          "index": 12
         }
       }
     }
@@ -304,7 +389,7 @@
             "TEXCOORD_0": 3
           },
           "indices": 0,
-          "material": 1,
+          "material": 2,
           "mode": 4
         }
       ]
@@ -319,7 +404,7 @@
             "TEXCOORD_0": 7
           },
           "indices": 4,
-          "material": 2,
+          "material": 3,
           "mode": 4
         }
       ]
@@ -338,6 +423,21 @@
           "mode": 4
         }
       ]
+    },
+    {
+      "name": "Plane001",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 14,
+            "POSITION": 13,
+            "TEXCOORD_0": 15
+          },
+          "indices": 12,
+          "material": 1,
+          "mode": 4
+        }
+      ]
     }
   ],
   "nodes": [
@@ -345,7 +445,8 @@
       "children": [
         1,
         3,
-        5
+        5,
+        7
       ],
       "name": "root",
       "scale": [
@@ -388,6 +489,16 @@
     {
       "mesh": 2,
       "name": "spaceship_body_low"
+    },
+    {
+      "children": [
+        8
+      ],
+      "name": "Plane001"
+    },
+    {
+      "mesh": 3,
+      "name": "Plane001"
     }
   ],
   "samplers": [
@@ -451,6 +562,18 @@
     {
       "sampler": 0,
       "source": 10
+    },
+    {
+      "sampler": 0,
+      "source": 11
+    },
+    {
+      "sampler": 0,
+      "source": 12
+    },
+    {
+      "sampler": 0,
+      "source": 13
     }
   ]
 }
