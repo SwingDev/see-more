@@ -11,7 +11,11 @@ const imageminJpegoptim = require('imagemin-jpegoptim')
 const base = require('./webpack.base')
 
 const STATIC_DIR = path.resolve(__dirname, '..', 'dist')
-const extractStyles = new ExtractTextPlugin('styles.[contenthash].css')
+const extractStyles = new ExtractTextPlugin({
+  filename: 'styles.[md5:contenthash:hex:8].css',
+  ignoreOrder: true,
+  allChunks: true
+})
 
 module.exports = merge(base, {
   mode: 'production',
