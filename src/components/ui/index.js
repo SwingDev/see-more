@@ -6,18 +6,27 @@ import './NoScriptMessage/styles.scss'
 import updateSplashScreen from './SplashScreen'
 import OrientationOverlay from './OrientationOverlay'
 import FullscreenButton from './FullscreenButton'
+import ErrorOverlay from './ErrorOverlay'
 
 class Root {
   constructor () {
     this.container = document.getElementById('ui')
 
-    this.components = [
-      new FullscreenButton(this.container),
-      new OrientationOverlay()
-    ]
-
+    this.components = []
     this.templates = []
 
+    if (Modernizr.webgl) {
+      this.components.push(...[
+        new FullscreenButton(this.container),
+        new OrientationOverlay()
+      ])
+    } else {
+      this.components = [
+        new ErrorOverlay()
+      ]
+    }
+
+    this.handleStoreUpdate()
     this.subscribeStore()
     this.setComponents()
   }
@@ -34,12 +43,14 @@ class Root {
   }
 
   subscribeStore () {
-    store.subscribe(() => {
-      const { loaded } = store.getState()
-
-      updateSplashScreen(loaded)
-    })
+    store.subscribe(this.handleStoreUpdate)
   }
+
+  handleStoreUpdate = () => {
+    const { loaded } = store.getState()
+
+    updateSplashScreen(loaded)
+  };
 
   render () {
     const template = html`

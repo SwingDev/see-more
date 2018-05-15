@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "webpack-dev-server --config ./webpack/webpack.dev.js",
-    "build": "rimraf ./dist && webpack --config ./webpack/webpack.prod.js --progress"
+    "build": "rimraf ./dist && cross-env NODE_ENV=production webpack --config ./webpack/webpack.prod.js --progress"
   },
   "author": "Mirosław Ciastek <miroslaw.ciastek@gmail.com>",
   "dependencies": {
@@ -36,6 +36,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "circular-dependency-plugin": "^4.3.0",
     "copy-webpack-plugin": "^4.3.0",
+    "cross-env": "^5.1.5",
     "css-declaration-sorter": "^2.1.0",
     "css-loader": "^0.28.11",
     "css-mqpacker": "^6.0.1",

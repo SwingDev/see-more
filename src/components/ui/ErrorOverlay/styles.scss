@@ -1,0 +1,54 @@
+@import '~styles/base/colors';
+@import '~styles/base/settings';
+@import '~styles/utils/ui';
+
+$base-margin: 24;
+$base-width: 1334;
+
+$img-width: 146;
+$img-height: 130;
+$img-ratio: $img-height / $img-width;
+$img-vw: calc-vw($img-width, $base-width);
+
+.error-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 8;
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: $white;
+
+  &__img,
+  &__message {
+    margin: 0 auto;
+  }
+
+  &__img {
+    width: $img-vw;
+    height: $img-ratio * $img-vw;
+    max-width: #{$img-width / 2}px;
+    max-height: #{$img-height / 2}px;
+  }
+
+  &__img + &__message {
+    margin-top: 20px;
+  }
+
+  &__message {
+    max-width: 50%;
+    text-align: center;
+  }
+}
+
+@media #{$screen-sm} {
+  .error-overlay {
+    &__message {
+      max-width: 350px;
+    }
+  }
+}

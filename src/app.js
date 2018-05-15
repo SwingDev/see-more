@@ -1,6 +1,9 @@
 import 'normalize.css'
 import 'styles/main.scss'
 
+import store from 'store'
+import { setLoaded } from 'store/actions'
+
 import { enableDevTools } from 'utils/dev-tools'
 import ARDisplay from 'utils/ARDisplay'
 import DefaultDisplay from 'utils/DefaultDisplay'
@@ -11,6 +14,12 @@ import renderComponents from 'components/ui'
 class App {
   constructor () {
     this.disabled = false
+
+    this.checkWebGLSupport()
+    renderComponents()
+
+    if (this.disabled) return
+
     this.display = new ARDisplay()
 
     if (process.env.NODE_ENV === 'development') {
@@ -22,9 +31,15 @@ class App {
     this.setLights()
     this.setDisplay()
 
-    renderComponents()
-
     this.animate()
+  }
+
+  checkWebGLSupport () {
+    if (!Modernizr.webgl) {
+      this.disabled = true
+
+      store.dispatch(setLoaded())
+    }
   }
 
   setDisplay () {
