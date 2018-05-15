@@ -1,0 +1,17 @@
+version: '3'
+services:
+  frontend:
+    restart: unless-stopped
+    build:
+      context: .
+    command: yarn start
+    ports:
+      - "127.0.0.1:81:3000"
+    volumes:
+      - "./src:/app/src/"
+      - "./webpack:/app/webpack/"
+      - "./package.json:/app/package.json"
+      - "./.env.local:/app/.env"
+    environment:
+      CHOKIDAR_USEPOLLING: 1
+      CHOKIDAR_INTERVAL: 2500
