@@ -25,5 +25,5 @@ WORKDIR /app
 COPY . /app/
 COPY ./.env.$ENV_FILE /app/.env
 
-#RUN yarn build
+RUN yarn build
 CMD echo "Project built"
