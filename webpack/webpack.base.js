@@ -94,7 +94,8 @@ module.exports = {
     }]),
     new ModernizrWebpackPlugin({
       options: [
-        'setClasses'
+        'setClasses',
+        'prefixed'
       ],
       'feature-detects': [
         'webgl'

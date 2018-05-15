@@ -21,3 +21,7 @@ export const BREAKPOINTS = {
   large: 1200,
   xLarge: 1920
 }
+
+export const message = {
+  NO_CAMERA: 'For full experience allow access to device camera'
+}

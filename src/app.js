@@ -2,7 +2,9 @@ import 'normalize.css'
 import 'styles/main.scss'
 
 import store from 'store'
-import { setLoaded } from 'store/actions'
+import { setLoaded, setMessage } from 'store/actions'
+
+import { message } from 'root/config'
 
 import { enableDevTools } from 'utils/dev-tools'
 import ARDisplay from 'utils/ARDisplay'
@@ -86,6 +88,12 @@ class App {
     this.display.init(this.renderer, this.scene)
 
     this.disabled = false
+
+    store.dispatch(setMessage({
+      show: true,
+      text: message.NO_CAMERA,
+      light: true
+    }))
 
     this.animate()
   }

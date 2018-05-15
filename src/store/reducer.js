@@ -1,8 +1,17 @@
-import { LOADED_SET, ERROR_SET } from './actions'
+import {
+  LOADED_SET,
+  ERROR_SET,
+  MESSAGE_SET
+} from './actions'
 
 const INITIAL_STATE = {
   loaded: false,
-  error: null
+  error: null,
+  message: {
+    show: false,
+    text: '',
+    light: false
+  }
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -17,6 +26,17 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         error: action.error
+      }
+
+    case MESSAGE_SET:
+      return {
+        ...state,
+        message: {
+          ...state.message,
+          show: action.show,
+          text: action.text,
+          light: action.light
+        }
       }
 
     default:

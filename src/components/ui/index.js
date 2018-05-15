@@ -7,6 +7,7 @@ import updateSplashScreen from './SplashScreen'
 import OrientationOverlay from './OrientationOverlay'
 import FullscreenButton from './FullscreenButton'
 import ErrorOverlay from './ErrorOverlay'
+import Toast from './Toast'
 
 class Root {
   constructor () {
@@ -18,7 +19,8 @@ class Root {
     if (Modernizr.webgl) {
       this.components.push(...[
         new FullscreenButton(this.container),
-        new OrientationOverlay()
+        new OrientationOverlay(),
+        new Toast(this.container)
       ])
     } else {
       this.components = [

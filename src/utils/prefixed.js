@@ -24,3 +24,14 @@ export const pageVisibility = (() => {
 
   return { hidden, state, visibilityChange }
 })()
+
+// @see: https://modernizr.com/docs#modernizr-prefixed
+export const transitionEndEvent = (() => {
+  const transEndEventNames = {
+    'WebkitTransition': 'webkitTransitionEnd',
+    'MozTransition': 'transitionend',
+    'transition': 'transitionend'
+  }
+
+  return transEndEventNames[Modernizr.prefixed('transition')]
+})()
