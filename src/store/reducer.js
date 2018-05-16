@@ -1,7 +1,8 @@
 import {
   LOADED_SET,
   ERROR_SET,
-  MESSAGE_SET
+  MESSAGE_SET,
+  HELPER_VISIBILITY_SET
 } from './actions'
 
 const INITIAL_STATE = {
@@ -11,7 +12,8 @@ const INITIAL_STATE = {
     show: false,
     text: '',
     light: false
-  }
+  },
+  showHelper: true
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -37,6 +39,12 @@ const reducer = (state = INITIAL_STATE, action) => {
           text: action.text,
           light: action.light
         }
+      }
+
+    case HELPER_VISIBILITY_SET:
+      return {
+        ...state,
+        showHelper: action.show
       }
 
     default:

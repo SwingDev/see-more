@@ -23,5 +23,6 @@ export const BREAKPOINTS = {
 }
 
 export const message = {
-  NO_CAMERA: 'For full experience allow access to device camera'
+  NO_CAMERA: 'For full experience allow access to device camera',
+  FIND_MAKER: 'Find marker with "See more" text'
 }

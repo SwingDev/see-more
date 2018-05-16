@@ -18,7 +18,7 @@
   padding: 0 16px;
   color: $white;
   white-space: nowrap;
-  background-color: $black;
+  background-color: rgba($black, .8);
   border-radius: 30px;
 
   &.light {

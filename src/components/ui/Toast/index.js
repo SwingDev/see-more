@@ -27,7 +27,7 @@ class Toast {
     const { message } = store.getState()
     const { show, text, light } = message
 
-    if (show && text !== this.prevText) {
+    if (show && text !== this.prevText && this.prevText) {
       this.render({
         show: false,
         text: this.prevText,
@@ -73,7 +73,7 @@ class Toast {
     })
 
     const template = html`
-      <p class="${classes}">${props.text}</p>
+      <p class="${classes}">${props.text || this.prevText}</p>
     `
 
     if (this.onUpdate) {

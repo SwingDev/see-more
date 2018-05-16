@@ -1,6 +1,9 @@
 import Spaceship from 'components/Spaceship'
 
-import { MARKER_MODELS } from 'root/config'
+import { MARKER_MODELS, message } from 'root/config'
+
+import store from 'store'
+import { setHelperVisibility, setMessage } from 'store/actions'
 
 class ARDisplay {
   constructor () {
@@ -98,6 +101,9 @@ class ARDisplay {
         lerpScale: 1
       })
 
+      controls.addEventListener('becameVisible', this.handleMarkerVisible)
+      controls.addEventListener('becameUnVisible', this.handleMarkerHide)
+
       this.addModel(modelName, smoothedRoot)
 
       this.controls.push({
@@ -129,9 +135,26 @@ class ARDisplay {
     }
   }
 
+  handleMarkerVisible = () => {
+    store.dispatch(setHelperVisibility(false))
+    store.dispatch(setMessage({
+      show: false,
+      text: ''
+    }))
+  };
+
+  handleMarkerHide = () => {
+    store.dispatch(setHelperVisibility(true))
+    store.dispatch(setMessage({
+      show: true,
+      text: message.FIND_MAKER
+    }))
+  };
+
   handleInit = () => {
     this.addMarkers()
     this.handleResize()
+    this.handleMarkerHide()
   };
 
   handleResize = () => {
