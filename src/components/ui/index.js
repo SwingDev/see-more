@@ -8,6 +8,7 @@ import OrientationOverlay from './OrientationOverlay'
 import FullscreenButton from './FullscreenButton'
 import ErrorOverlay from './ErrorOverlay'
 import Toast from './Toast'
+import Helper from './Helper'
 
 class Root {
   constructor () {
@@ -20,7 +21,8 @@ class Root {
       this.components.push(...[
         new FullscreenButton(this.container),
         new OrientationOverlay(),
-        new Toast(this.container)
+        new Toast(this.container),
+        new Helper()
       ])
     } else {
       this.components = [

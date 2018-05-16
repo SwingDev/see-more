@@ -1,5 +1,6 @@
 @import '~styles/base/colors';
 @import '~styles/utils/animations';
+@import '~styles/utils/ui';
 
 .toast {
   @include slide-out(
@@ -7,19 +8,7 @@
     $translateY: 20px
   );
 
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  z-index: 7;
-  display: flex;
-  align-items: center;
-  height: 30px;
-  margin: 0;
-  padding: 0 16px;
-  color: $white;
-  white-space: nowrap;
-  background-color: rgba($black, .8);
-  border-radius: 30px;
+  @include toast;
 
   &.light {
     background-color: $accent;

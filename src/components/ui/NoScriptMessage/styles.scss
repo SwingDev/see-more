@@ -1,17 +1,8 @@
 @import '~styles/base/colors';
+@import '~styles/utils/ui';
 
 .no-script-message {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  z-index: 11;
-  display: flex;
-  align-items: center;
-  height: 30px;
-  padding: 0 16px;
-  color: $white;
-  white-space: nowrap;
-  background-color: $black;
-  border-radius: 30px;
+  @include toast;
+
   transform: translate(-50%, 0);
 }

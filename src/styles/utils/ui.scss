@@ -91,22 +91,21 @@
 }
 
 //=======================
-// Images
+// Misc
 //=======================
 
-@mixin image-placeholder {
-  position: relative;
-  background-color: $catskill-white;
-
-  &::before {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 24px;
-    height: 24px;
-    margin-top: -12px;
-    margin-left: -12px;
-    background: url('images/icons/image-broken.svg') no-repeat;
-    content: '';
-  }
+@mixin toast {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  z-index: 7;
+  display: flex;
+  align-items: center;
+  height: 30px;
+  margin: 0;
+  padding: 0 16px;
+  color: $white;
+  white-space: nowrap;
+  background-color: rgba($black, .8);
+  border-radius: 30px;
 }
