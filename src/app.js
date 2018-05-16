@@ -76,7 +76,7 @@ class App {
     this.scene.add(hemiLight)
   }
 
-  handleARDisplayError = () => {
+  handleARDisplayError = (e) => {
     this.display.disable()
 
     this.disabled = true

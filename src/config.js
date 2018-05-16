@@ -1,7 +1,7 @@
 export const SPACESHIP_FILE_NAME = 'spaceship_decal_ver'
 
 export const MARKER_MODELS = [{
-  file: 'hiro.patt',
+  file: 'marker.patt',
   modelName: 'spaceship'
 }]
 
