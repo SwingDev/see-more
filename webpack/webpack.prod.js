@@ -7,6 +7,7 @@ const ManifestPlugin = require('webpack-manifest-plugin')
 const MinifyPlugin = require('babel-minify-webpack-plugin')
 const ImageminPlugin = require('imagemin-webpack-plugin').default
 const imageminJpegoptim = require('imagemin-jpegoptim')
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 
 const base = require('./webpack.base')
 
@@ -99,6 +100,20 @@ module.exports = merge(base, {
           max: 85,
           progressive: true
         })
+      ]
+    }),
+    new SWPrecacheWebpackPlugin({
+      cacheId: 'see-more-ar',
+      dontCacheBustUrlsMatching: /\.\w{8}\./,
+      filename: 'service-worker.js',
+      minify: true,
+      staticFileGlobsIgnorePatterns: [
+        /\.pdf$/,
+        /\.DS_Store$/,
+        /\.map$/,
+        /three\.js$/,
+        /asset-manifest\.json$/,
+        /rev-manifest\.json$/
       ]
     })
   ]

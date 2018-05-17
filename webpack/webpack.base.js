@@ -9,6 +9,8 @@ const ModernizrWebpackPlugin = require('modernizr-webpack-plugin')
 const APP_DIR = path.resolve(__dirname, '..', 'src')
 const BUILD_DIR = path.resolve(__dirname, '..', 'dist')
 
+const PROD_ENV = process.env.NODE_ENV === 'production'
+
 module.exports = {
   entry: [
     `${APP_DIR}/app.js`
@@ -80,17 +82,19 @@ module.exports = {
       systemvars: true
     }),
     new webpack.NoEmitOnErrorsPlugin(),
-    new HtmlWebpackPlugin(
-      {
-        filename: 'index.html',
-        template: `${APP_DIR}/index.hbs`
-      }
-    ),
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: `${APP_DIR}/index.hbs`,
+      production: PROD_ENV
+    }),
     new HtmlWebpackInlineSVGPlugin({
       runPreEmit: true
     }),
     new CopyWebpackPlugin([{
-      from: './src/public'
+      from: './src/public',
+      ignore: (PROD_ENV) ? [
+        'three.js'
+      ] : undefined
     }]),
     new ModernizrWebpackPlugin({
       options: [

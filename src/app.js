@@ -9,6 +9,7 @@ import { message } from 'root/config'
 import { enableDevTools } from 'utils/dev-tools'
 import ARDisplay from 'utils/ARDisplay'
 import DefaultDisplay from 'utils/DefaultDisplay'
+import { register } from 'utils/sw'
 
 import makeLights from 'components/Lights'
 import renderComponents from 'components/ui'
@@ -120,3 +121,7 @@ class App {
 
 // eslint-disable-next-line
 new App()
+
+if (process.env.NODE_ENV === 'production') {
+  register()
+}

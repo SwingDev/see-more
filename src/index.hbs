@@ -17,7 +17,11 @@
 
     <div id="ui"></div>
     <canvas id="scene" class="has-background"></canvas>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/90/three.js"></script>
+    {{#if htmlWebpackPlugin.options.production}}
+      <script src="three.min.js"></script>
+    {{else}}
+      <script src="three.js"></script>
+    {{/if}}
     <script src="ar.min.js"></script>
   </body>
 </html>

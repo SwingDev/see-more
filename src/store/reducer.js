@@ -13,7 +13,7 @@ const INITIAL_STATE = {
     text: '',
     light: false
   },
-  showHelper: true
+  showHelper: false
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
