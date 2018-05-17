@@ -39,4 +39,4 @@ RUN yarn build
 
 USER node
 
-CMD yarn start
+#CMD yarn start
