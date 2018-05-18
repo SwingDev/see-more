@@ -29,7 +29,7 @@ deploy: clean
 		cgswong/aws:latest /bin/bash -c \
 			"ls -la /dist && \
 			 aws configure set preview.cloudfront true && \
-			 aws s3 cp /dist s3://swg-ftar-prod/ --recursive $(S3_CP_ARGS) && \
+			 aws s3 cp /dist s3://$(AWS_BUCKET)/ --recursive $(S3_CP_ARGS) && \
 			 aws cloudfront create-invalidation --distribution-id $(AWS_CLOUDFRONT_DISTRIBUTION) --paths /index.html"
 
 push:
