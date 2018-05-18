@@ -5,6 +5,9 @@ RUN chown -R root /opt
 RUN chmod 755 /usr/local/bin/*
 
 RUN mkdir -p /app
+    chown -R node /app && \
+    chown -R node /home/node
+
 ENV PATH "$PATH:/app/node_modules/.bin"
 
 RUN apt-get update && apt-get install -y \
@@ -25,9 +28,8 @@ RUN apt-get purge -y \
   g++ \
   make python
 
-ENV PORT=8080
 ENV NODE_ENV=production
-ARG ENV_FILE=production
+ARG ENV_FILE=local
 
 # Copy app
 WORKDIR /app
