@@ -1,3 +1,9 @@
+const PROD_ENV = process.env.NODE_ENV === 'production'
+
+require('dotenv').config({
+  path: (PROD_ENV) ? './.env.production' : './.env'
+})
+
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -9,7 +15,7 @@ const ModernizrWebpackPlugin = require('modernizr-webpack-plugin')
 const APP_DIR = path.resolve(__dirname, '..', 'src')
 const BUILD_DIR = path.resolve(__dirname, '..', 'dist')
 
-const PROD_ENV = process.env.NODE_ENV === 'production'
+const metaData = require('../meta-data')
 
 module.exports = {
   entry: [
@@ -79,13 +85,15 @@ module.exports = {
   },
   plugins: [
     new Dotenv({
-      systemvars: true
+      systemvars: true,
+      path: (PROD_ENV) ? './.env.production' : './.env'
     }),
     new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: `${APP_DIR}/index.hbs`,
-      production: PROD_ENV
+      production: PROD_ENV,
+      meta: metaData
     }),
     new HtmlWebpackInlineSVGPlugin({
       runPreEmit: true

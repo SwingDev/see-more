@@ -72,11 +72,19 @@ $img-vw: calc-vw($img-width, $base-width);
     max-height: #{$banner-height / 2}px;
   }
 
+  &__banner + &__message {
+    margin-top: 60px;
+  }
+
   &__message {
     max-width: 50%;
-    margin: auto;
+    margin: 0 auto;
     font-weight: 600;
     text-align: center;
+  }
+
+  &__message + &__img {
+    margin-top: 30px;
   }
 
   &__img {
