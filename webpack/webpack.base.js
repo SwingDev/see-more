@@ -1,7 +1,10 @@
 const PROD_ENV = process.env.NODE_ENV === 'production'
+const ENV_FILE = process.env.ENV_FILE
+
+const envFilePath = (ENV_FILE) ? `./.env.${ENV_FILE}` : './.env'
 
 require('dotenv').config({
-  path: (PROD_ENV) ? './.env.production' : './.env'
+  path: envFilePath
 })
 
 const path = require('path')
@@ -86,7 +89,7 @@ module.exports = {
   plugins: [
     new Dotenv({
       systemvars: true,
-      path: (PROD_ENV) ? './.env.production' : './.env'
+      path: envFilePath
     }),
     new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({

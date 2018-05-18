@@ -5,8 +5,6 @@ RUN chown -R root /opt
 RUN chmod 755 /usr/local/bin/*
 
 RUN mkdir -p /app
-    chown -R node /app && \
-    chown -R node /home/node
 
 ENV PATH "$PATH:/app/node_modules/.bin"
 
