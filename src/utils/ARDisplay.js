@@ -9,16 +9,31 @@ class ARDisplay {
   constructor () {
     this.controls = []
     this.camera = new THREE.Camera()
+    this.disabled = false
   }
 
   init (renderer, scene) {
     this.renderer = renderer
     this.scene = scene
 
-    this.clearSceneBackground()
-    this.setARToolkit()
+    try {
+      this.setARToolkit()
+    } catch (e) {
+      if (this.onError && !this.disabled) {
+        this.onError(e)
+      }
 
-    window.addEventListener('resize', this.handleResize)
+      this.disabled = true
+
+      /* eslint-disable no-console */
+      console.error(e)
+      /* eslint-enable no-console */
+    }
+
+    if (!this.disabled) {
+      this.clearSceneBackground()
+      window.addEventListener('resize', this.handleResize)
+    }
   }
 
   clear () {
@@ -44,6 +59,7 @@ class ARDisplay {
 
     this.renderer = null
     this.scene = null
+    this.disabled = true
 
     window.removeEventListener('resize', this.handleResize)
   }
@@ -152,6 +168,8 @@ class ARDisplay {
   };
 
   handleInit = () => {
+    if (this.disabled) return
+
     this.addMarkers()
     this.handleResize()
     this.handleMarkerHide()
@@ -169,7 +187,7 @@ class ARDisplay {
   };
 
   handleError = () => {
-    if (this.onError) {
+    if (this.onError && !this.disabled) {
       this.onError()
     }
   }

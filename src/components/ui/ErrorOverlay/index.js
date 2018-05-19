@@ -4,12 +4,12 @@ import IconAlert from 'images/icon-alert.svg'
 
 import './styles.scss'
 
-class FullscreenButton {
+class ErrorOverlay {
   init () {
     this.render()
 
     if (!this.onUpdate) {
-      throw new Error('FullscreenButton has no "onUpdate" method!')
+      throw new Error('ErrorOverlay has no "onUpdate" method!')
     }
   }
 
@@ -30,4 +30,4 @@ class FullscreenButton {
   }
 }
 
-export default FullscreenButton
+export default ErrorOverlay

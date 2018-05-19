@@ -12,10 +12,9 @@ class FullscreenButton {
   }
 
   init () {
-    this.render()
-    this.container.addEventListener('click', this.handleClick)
-
     if (screenfull.enabled) {
+      this.render()
+      this.container.addEventListener('click', this.handleClick)
       screenfull.on('change', this.handleFullscreenChange)
     }
 
