@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import store from 'store'
 import { setScreenLock } from 'store/actions'
 import { BREAKPOINTS } from 'root/config'
-import { pageVisibility } from 'utils/prefixed'
+import { pageVisibility, getScreenOrientation } from 'utils/prefixed'
 
 import Logo from 'images/logo.svg'
 import Banner from 'images/banner.svg'
@@ -32,9 +32,7 @@ class OrientationOverlay {
 
   handleOrientationChange = () => {
     const screenSize = Math.max(window.screen.width, window.screen.height)
-    const screenOrientation = ('orientation' in window.screen)
-      ? window.screen.orientation.angle
-      : window.orientation
+    const screenOrientation = getScreenOrientation()
 
     const isPortrait = Math.abs(screenOrientation) !== 90 && screenOrientation !== 270
 

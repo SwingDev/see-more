@@ -1,8 +1,11 @@
+import isMobile from 'ismobilejs'
+
 import store from 'store'
 import Spaceship from 'components/Spaceship'
 import parallax from 'components/ui/Parallax'
 
 import { getQuaternion } from 'utils/math'
+import { getScreenOrientation } from 'utils/prefixed'
 
 const INITIAL_ROTATION = {
   x: 45,
@@ -22,7 +25,7 @@ class DefaultDisplay {
     )
 
     this.deviceOrientation = null
-    this.screenOrientation = 0
+    this.screenOrientation = getScreenOrientation()
     this.shouldUpdate = true
   }
 
@@ -34,8 +37,6 @@ class DefaultDisplay {
     this.addModel()
     this.setSceneBackground()
 
-    this.handleScreenOrientationChange()
-
     this.handleStoreUpdate()
     store.subscribe(this.handleStoreUpdate)
 
@@ -44,11 +45,6 @@ class DefaultDisplay {
     window.addEventListener(
       'deviceorientation',
       this.handleDeviceOrientationChange
-    )
-
-    window.addEventListener(
-      'orientationchange',
-      this.handleScreenOrientationChange
     )
   }
 
@@ -69,7 +65,8 @@ class DefaultDisplay {
     const { alpha, beta, gamma } = this.deviceOrientation
 
     if (this.model) {
-      const [w, x, y, z] = getQuaternion(alpha, beta, gamma + 90)
+      const alphaOffset = (isMobile.apple.device) ? 90 - this.screenOrientation : 90
+      const [w, x, y, z] = getQuaternion(alpha - alphaOffset, beta, gamma + 90)
       quaternion.set(-y, -z, -x, -w)
 
       this.model.quaternion.copy(quaternion)
@@ -101,12 +98,6 @@ class DefaultDisplay {
       beta: event.beta,
       gamma: event.gamma
     }
-  };
-
-  handleScreenOrientationChange = () => {
-    this.screenOrientation = ('orientation' in window.screen)
-      ? window.screen.orientation.angle
-      : window.orientation
   };
 
   handleStoreUpdate = () => {

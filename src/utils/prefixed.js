@@ -37,3 +37,9 @@ export const transitionEndEvent = (() => {
 })()
 
 export const transformProp = Modernizr.prefixed('transform')
+
+export const getScreenOrientation = () => (
+  ('orientation' in window.screen)
+    ? window.screen.orientation.angle
+    : window.orientation
+)
