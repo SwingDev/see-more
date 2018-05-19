@@ -39,10 +39,15 @@
     <canvas id="scene" class="has-background"></canvas>
 
     {{#if htmlWebpackPlugin.options.production}}
-      <script src="three.min.js"></script>
+      <script src="/three.min.js"></script>
     {{else}}
-      <script src="three.js"></script>
+      <script src="/three.js"></script>
     {{/if}}
-    <script src="ar.min.js"></script>
+
+    {{#if htmlWebpackPlugin.options.production}}
+      <script src="/ar.min.js"></script>
+    {{else}}
+      <script src="/ar.js"></script>
+    {{/if}}
   </body>
 </html>
