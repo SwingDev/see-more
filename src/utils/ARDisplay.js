@@ -1,6 +1,7 @@
 import debounce from 'lodash/debounce'
 
 import Spaceship from 'components/Spaceship'
+import parallax from 'components/ui/Parallax'
 
 import { MARKER_MODELS, message } from 'root/config'
 
@@ -70,7 +71,7 @@ class ARDisplay {
   }
 
   clearSceneBackground () {
-    this.renderer.domElement.classList.remove('has-background')
+    parallax.show(false)
   }
 
   setARToolkit () {

@@ -36,10 +36,10 @@ class OrientationOverlay {
       ? window.screen.orientation.angle
       : window.orientation
 
-    const isLandscape = Math.abs(screenOrientation) !== 90
+    const isPortrait = Math.abs(screenOrientation) !== 90 && screenOrientation !== 270
 
     const isSmallDevice = (screenSize <= BREAKPOINTS.large)
-    const isOverlayActive = isLandscape && isSmallDevice
+    const isOverlayActive = isPortrait && isSmallDevice
 
     store.dispatch(setScreenLock(isOverlayActive))
 

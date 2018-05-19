@@ -1,5 +1,6 @@
 import store from 'store'
 import Spaceship from 'components/Spaceship'
+import parallax from 'components/ui/Parallax'
 
 import { getQuaternion } from 'utils/math'
 
@@ -52,7 +53,7 @@ class DefaultDisplay {
   }
 
   setSceneBackground () {
-    this.renderer.domElement.classList.add('has-background')
+    parallax.show(true)
   }
 
   addModel () {
@@ -118,6 +119,7 @@ class DefaultDisplay {
     if (!this.shouldUpdate) return
 
     this.rotateModel()
+    parallax.update(this.deviceOrientation)
   }
 }
 

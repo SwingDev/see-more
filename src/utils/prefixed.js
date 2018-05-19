@@ -35,3 +35,5 @@ export const transitionEndEvent = (() => {
 
   return transEndEventNames[Modernizr.prefixed('transition')]
 })()
+
+export const transformProp = Modernizr.prefixed('transform')

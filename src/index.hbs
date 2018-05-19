@@ -38,6 +38,8 @@
     <div id="ui"></div>
     <canvas id="scene" class="has-background"></canvas>
 
+     {{> Parallax/template}}
+
     {{#if htmlWebpackPlugin.options.production}}
       <script src="/three.min.js"></script>
     {{else}}

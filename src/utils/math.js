@@ -24,3 +24,7 @@ export const getQuaternion = (alpha, beta, gamma) => {
 
   return [w, x, y, z]
 }
+
+export const sign = (x) => (
+  typeof x === 'number' ? x ? x < 0 ? -1 : 1 : (x === x) ? 0 : NaN : NaN
+)
