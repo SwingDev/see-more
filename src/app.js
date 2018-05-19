@@ -2,7 +2,11 @@ import 'normalize.css'
 import 'styles/main.scss'
 
 import store from 'store'
-import { setLoaded, setMessage } from 'store/actions'
+import {
+  setLoaded,
+  setMessage,
+  setError
+} from 'store/actions'
 
 import { message } from 'root/config'
 
@@ -20,6 +24,8 @@ class App {
 
     this.checkWebGLSupport()
     renderComponents()
+
+    window.addEventListener('error', this.handleLoadError)
 
     if (this.disabled) return
 
@@ -42,6 +48,9 @@ class App {
       this.disabled = true
 
       store.dispatch(setLoaded())
+      store.dispatch(setError({
+        message: message.NO_WEBGL_SUPPORT
+      }))
     }
   }
 
@@ -76,6 +85,17 @@ class App {
     const { hemiLight } = makeLights()
     this.scene.add(hemiLight)
   }
+
+  handleLoadError = (e) => {
+    store.dispatch(setLoaded())
+    store.dispatch(setError({
+      message: message.ERROR
+    }))
+
+    /* eslint-disable no-console */
+    console.error(e)
+    /* eslint-enable no-console */
+  };
 
   handleARDisplayError = () => {
     this.display.disable()

@@ -1,25 +1,35 @@
 import { html } from 'lit-html'
 
+import store from 'store'
+
 import IconAlert from 'images/icon-alert.svg'
 
 import './styles.scss'
 
 class ErrorOverlay {
   init () {
-    this.render()
+    this.handleStoreUpdate()
+    store.subscribe(this.handleStoreUpdate)
 
     if (!this.onUpdate) {
       throw new Error('ErrorOverlay has no "onUpdate" method!')
     }
   }
 
-  render () {
+  handleStoreUpdate = () => {
+    const { error } = store.getState()
+
+    if (error) {
+      this.render({ message: error.message })
+    }
+  };
+
+  render ({ message }) {
     const template = html`
       <section class="error-overlay">
         <img class="error-overlay__img" src="${IconAlert}" alt="" />
         <p class="error-overlay__message">
-          Sorry, but your device doesn't support WebGL
-          and Augmented Reality
+          ${message}
         </p>
       </section>
     `

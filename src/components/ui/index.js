@@ -14,21 +14,15 @@ class Root {
   constructor () {
     this.container = document.getElementById('ui')
 
-    this.components = []
     this.templates = []
 
-    if (Modernizr.webgl) {
-      this.components.push(...[
-        new FullscreenButton(this.container),
-        new OrientationOverlay(),
-        new Toast(this.container),
-        new Helper()
-      ])
-    } else {
-      this.components = [
-        new ErrorOverlay()
-      ]
-    }
+    this.components = [
+      new FullscreenButton(this.container),
+      new OrientationOverlay(),
+      new Toast(this.container),
+      new Helper(),
+      new ErrorOverlay()
+    ]
 
     this.handleStoreUpdate()
     this.subscribeStore()
