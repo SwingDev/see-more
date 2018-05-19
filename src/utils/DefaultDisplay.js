@@ -1,23 +1,15 @@
 import store from 'store'
 import Spaceship from 'components/Spaceship'
 
+import { getQuaternion } from 'utils/math'
+
 const INITIAL_ROTATION = {
   x: 45,
-  y: 0,
+  y: 30,
   z: 0
 }
 
-const MAX_ROTATION_X = 15
-const MAX_ROTATION_Y = 15
-const MAX_ROTATION_Z = 15
-
-const getDumped = (value, min, max) => (
-  (value > max)
-    ? max
-    : (value < min)
-      ? min
-      : value
-)
+const quaternion = new THREE.Quaternion()
 
 class DefaultDisplay {
   constructor () {
@@ -76,27 +68,16 @@ class DefaultDisplay {
     const { alpha, beta, gamma } = this.deviceOrientation
 
     if (this.model) {
-      const rotationX = INITIAL_ROTATION.x + (
-        ((this.screenOrientation) ? gamma / this.screenOrientation : 0)
-      ) * MAX_ROTATION_X
+      const [w, x, y, z] = getQuaternion(alpha, beta, gamma + 90)
+      quaternion.set(-y, -z, -x, -w)
 
-      const rotationY = getDumped(
-        alpha - this.screenOrientation,
-        -MAX_ROTATION_Y,
-        MAX_ROTATION_Y
-      )
-
-      const rotationZ = getDumped(beta, -MAX_ROTATION_Z, MAX_ROTATION_Z)
-
-      this.model.rotation.x = THREE.Math.degToRad(rotationX)
-      this.model.rotation.y = THREE.Math.degToRad(rotationY)
-      this.model.rotation.z = THREE.Math.degToRad(rotationZ)
+      this.model.quaternion.copy(quaternion)
     }
   }
 
   handleModelLoad = (model) => {
     this.model = model
-    this.model.position.set(0, 0, -5)
+    this.model.position.set(0, 0, -4)
     this.model.rotation.set(
       THREE.Math.degToRad(INITIAL_ROTATION.x),
       THREE.Math.degToRad(INITIAL_ROTATION.y),
