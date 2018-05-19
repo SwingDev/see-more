@@ -1,6 +1,8 @@
 import { html } from 'lit-html'
 import classNames from 'classnames'
 
+import store from 'store'
+import { setScreenLock } from 'store/actions'
 import { BREAKPOINTS } from 'root/config'
 import { pageVisibility } from 'utils/prefixed'
 
@@ -38,6 +40,8 @@ class OrientationOverlay {
 
     const isSmallDevice = (screenSize <= BREAKPOINTS.large)
     const isOverlayActive = isLandscape && isSmallDevice
+
+    store.dispatch(setScreenLock(isOverlayActive))
 
     this.render({ isActive: isOverlayActive })
   }

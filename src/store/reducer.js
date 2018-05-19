@@ -2,7 +2,8 @@ import {
   LOADED_SET,
   ERROR_SET,
   MESSAGE_SET,
-  HELPER_VISIBILITY_SET
+  HELPER_VISIBILITY_SET,
+  SCREEN_LOCK_SET
 } from './actions'
 
 const INITIAL_STATE = {
@@ -13,7 +14,8 @@ const INITIAL_STATE = {
     text: '',
     light: false
   },
-  showHelper: false
+  showHelper: false,
+  lockScreen: false
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -45,6 +47,12 @@ const reducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         showHelper: action.show
+      }
+
+    case SCREEN_LOCK_SET:
+      return {
+        ...state,
+        lockScreen: action.lock
       }
 
     default:

@@ -1,3 +1,4 @@
+import store from 'store'
 import Spaceship from 'components/Spaceship'
 
 const INITIAL_ROTATION = {
@@ -29,6 +30,7 @@ class DefaultDisplay {
 
     this.deviceOrientation = null
     this.screenOrientation = 0
+    this.shouldUpdate = true
   }
 
   init (renderer, scene) {
@@ -40,6 +42,9 @@ class DefaultDisplay {
     this.setSceneBackground()
 
     this.handleScreenOrientationChange()
+
+    this.handleStoreUpdate()
+    store.subscribe(this.handleStoreUpdate)
 
     window.addEventListener('resize', this.handleResize)
 
@@ -122,7 +127,15 @@ class DefaultDisplay {
       : window.orientation
   };
 
+  handleStoreUpdate = () => {
+    const { lockScreen } = store.getState()
+
+    this.shouldUpdate = !lockScreen
+  };
+
   update () {
+    if (!this.shouldUpdate) return
+
     this.rotateModel()
   }
 }

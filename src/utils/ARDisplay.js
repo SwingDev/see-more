@@ -1,3 +1,5 @@
+import debounce from 'lodash/debounce'
+
 import Spaceship from 'components/Spaceship'
 
 import { MARKER_MODELS, message } from 'root/config'
@@ -10,6 +12,7 @@ class ARDisplay {
     this.controls = []
     this.camera = new THREE.Camera()
     this.disabled = false
+    this.shouldUpdate = true
   }
 
   init (renderer, scene) {
@@ -32,6 +35,8 @@ class ARDisplay {
 
     if (!this.disabled) {
       this.clearSceneBackground()
+      this.handleStoreUpdate()
+      store.subscribe(this.handleStoreUpdate)
       window.addEventListener('resize', this.handleResize)
     }
   }
@@ -175,7 +180,7 @@ class ARDisplay {
     this.handleMarkerHide()
   };
 
-  handleResize = () => {
+  handleResize = debounce(() => {
     this.artoolkitSource.onResizeElement()
     this.artoolkitSource.copyElementSizeTo(this.renderer.domElement)
 
@@ -184,15 +189,23 @@ class ARDisplay {
         this.artoolkitContext.arController.canvas
       )
     }
-  };
+  }, 100);
 
   handleError = () => {
     if (this.onError && !this.disabled) {
       this.onError()
     }
-  }
+  };
+
+  handleStoreUpdate = () => {
+    const { lockScreen } = store.getState()
+
+    this.shouldUpdate = !lockScreen
+  };
 
   update () {
+    if (this.disabled || !this.shouldUpdate) return
+
     if (this.artoolkitSource && this.artoolkitSource.ready !== false) {
       this.artoolkitContext.update(this.artoolkitSource.domElement)
     }
