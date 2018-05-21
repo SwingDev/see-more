@@ -2,7 +2,7 @@
 
 > Find SwingDev's spaceship with See More AR experience!
 
-![](https://raw.githubusercontent.com/SwingDev/see-more/master/src/public/og-cover.jpg?token=ADBdXUpfcGOuY1D9T7MC1aDwjdd8fIkXks5bDBrfwA%3D%3D)
+![SwingDev spaceship is docked at Front-Trends 2018](https://raw.githubusercontent.com/SwingDev/see-more/master/src/public/og-cover.jpg?token=ADBdXUpfcGOuY1D9T7MC1aDwjdd8fIkXks5bDBrfwA%3D%3D)
 
 Web AR experience built with [AR.js][ar.js]
 
