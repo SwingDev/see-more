@@ -197,7 +197,7 @@ class ARDisplay {
   };
 
   handleResize = debounce(() => {
-    if (!this.renderer) return
+    if (this.disabled) return
 
     this.artoolkitSource.onResizeElement()
     this.artoolkitSource.copyElementSizeTo(this.renderer.domElement)

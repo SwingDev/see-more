@@ -1,13 +1,13 @@
 {
-  "name": "ar-invitation",
+  "name": "see-more-swingdev",
   "version": "1.0.0",
-  "description": "",
+  "description": "AR application for Front Trends 2018",
   "main": "dist/index.js",
   "scripts": {
     "start": "webpack-dev-server --config ./webpack/webpack.dev.js",
     "build": "rimraf ./dist && cross-env NODE_ENV=production webpack --config ./webpack/webpack.prod.js --progress"
   },
-  "author": "Mirosław Ciastek <miroslaw.ciastek@gmail.com>",
+  "author": "Mirosław Ciastek <mirek@swingdev.io>",
   "dependencies": {
     "animejs": "^2.2.0",
     "classnames": "^2.2.5",
