@@ -151,7 +151,7 @@ class ARDisplay {
         })
 
         spaceship.load()
-          .then((model) => root.add(model))
+          .then((model) => this.handleSpaceshipLoad(root, model))
         break
 
       default:
@@ -166,6 +166,11 @@ class ARDisplay {
       }
     }
   }
+
+  handleSpaceshipLoad = (root, model) => {
+    model.position.y = 0.1
+    root.add(model)
+  };
 
   handleMarkerVisible = () => {
     store.dispatch(setHelperVisibility(false))

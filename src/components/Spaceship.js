@@ -5,7 +5,7 @@ import { SPACESHIP_FILE_NAME } from 'root/config'
 import { setLoaded } from 'store/actions'
 import loadModel from 'utils/model-loader'
 
-import shadowImage from 'images/shadow.png'
+import shadowImage from 'images/ship-shadow.png'
 
 const defaults = {
   shadow: false
@@ -20,11 +20,10 @@ const getShadowMesh = () => {
     transparent: true
   })
 
-  const geometry = new THREE.PlaneGeometry(300, 500)
+  const geometry = new THREE.PlaneGeometry(500, 500)
   const mesh = new THREE.Mesh(geometry, material)
 
   mesh.rotation.x = THREE.Math.degToRad(-90)
-  mesh.rotation.z = THREE.Math.degToRad(90)
 
   return mesh
 }
@@ -84,7 +83,7 @@ class Spaceship {
 
   addShadow () {
     const shadowMesh = getShadowMesh()
-    shadowMesh.position.y = 2
+    shadowMesh.position.y = -10
 
     this.object.add(shadowMesh)
   }
