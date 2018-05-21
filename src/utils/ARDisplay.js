@@ -138,7 +138,9 @@ class ARDisplay {
   addModel (modelName, root) {
     switch (modelName) {
       case 'spaceship':
-        const spaceship = new Spaceship(this.renderer)
+        const spaceship = new Spaceship(this.renderer, {
+          shadow: true
+        })
 
         spaceship.load()
           .then((model) => root.add(model))

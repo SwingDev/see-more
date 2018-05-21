@@ -65,7 +65,9 @@ class DefaultDisplay {
     const { alpha, beta, gamma } = this.deviceOrientation
 
     if (this.model) {
-      const alphaOffset = (isMobile.apple.device) ? 90 - this.screenOrientation : 90
+      const alphaOffset = (isMobile.apple.device)
+        ? 90 - this.screenOrientation
+        : 90
       const [w, x, y, z] = getQuaternion(alpha - alphaOffset, beta, gamma + 90)
       quaternion.set(-y, -z, -x, -w)
 
