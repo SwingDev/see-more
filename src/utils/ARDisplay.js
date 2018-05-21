@@ -4,6 +4,7 @@ import Spaceship from 'components/Spaceship'
 import parallax from 'components/ui/Parallax'
 
 import { MARKER_MODELS, message } from 'root/config'
+import { getCameraProjectionMatrix } from 'utils/math'
 
 import store from 'store'
 import { setHelperVisibility, setMessage } from 'store/actions'
@@ -12,6 +13,7 @@ class ARDisplay {
   constructor () {
     this.controls = []
     this.camera = new THREE.Camera()
+
     this.disabled = false
     this.shouldUpdate = true
   }
@@ -94,8 +96,14 @@ class ARDisplay {
     })
 
     this.artoolkitContext.init(() => {
+      const camerProjectionMatrix = getCameraProjectionMatrix(
+        this.artoolkitContext._artoolkitProjectionAxisTransformMatrix
+      )
+
+      // Use custom camera projection matrix
+      // to fix flickering issue
       this.camera.projectionMatrix.copy(
-        this.artoolkitContext.getProjectionMatrix()
+        camerProjectionMatrix
       )
     })
   }
