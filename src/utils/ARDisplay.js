@@ -12,6 +12,7 @@ import { setHelperVisibility, setMessage } from 'store/actions'
 class ARDisplay {
   constructor () {
     this.controls = []
+    this.models = []
     this.camera = new THREE.Camera()
 
     this.disabled = false
@@ -59,6 +60,12 @@ class ARDisplay {
 
     this.scene.children.forEach((object) => {
       this.scene.remove(object)
+    })
+
+    this.models.forEach((model) => {
+      if (model.dispose) {
+        model.dispose()
+      }
     })
   }
 
@@ -147,8 +154,11 @@ class ARDisplay {
     switch (modelName) {
       case 'spaceship':
         const spaceship = new Spaceship(this.renderer, {
-          shadow: true
+          shadow: true,
+          hovering: true
         })
+
+        this.models.push(spaceship)
 
         spaceship.load()
           .then((model) => this.handleSpaceshipLoad(root, model))

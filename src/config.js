@@ -23,7 +23,7 @@ export const BREAKPOINTS = {
 }
 
 export const message = {
-  NO_CAMERA: 'For full experience allow access to device camera',
+  NO_CAMERA: 'Please reload page and allow access to camera',
   FIND_MAKER: 'Find marker with "See More" logo',
   NO_WEBGL_SUPPORT: `
     Sorry, but your device doesn't support WebGL
