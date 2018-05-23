@@ -30,7 +30,7 @@ deploy: clean
 			"ls -la /dist && \
 			 aws configure set preview.cloudfront true && \
 			 aws s3 cp /dist s3://$(AWS_BUCKET)/ --recursive $(S3_CP_ARGS) && \
-			 aws cloudfront create-invalidation --distribution-id $(AWS_CLOUDFRONT_DISTRIBUTION) --paths /index.html"
+			 aws cloudfront create-invalidation --distribution-id $(AWS_CLOUDFRONT_DISTRIBUTION) --paths '/*'"
 
 push:
 	docker push $(NAME):$(SHA1)_$(ENV)
